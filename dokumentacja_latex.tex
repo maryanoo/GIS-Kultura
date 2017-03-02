@@ -1,0 +1,326 @@
+
+% !TeX program = lualatex
+\documentclass[a4paper,11pt,oneside]{mwrep}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\defaultfontfeatures{Ligatures=TeX}
+%\setmainfont{Iwona}
+%\setmainfont{TeX Gyre Heros}
+
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{chngpage}
+\usepackage{subcaption} 
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{epstopdf}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usepackage{xcolor}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,commentstyle=\itshape\color{purple!40!black}}
+\lstset{
+	numbers=left,
+	stepnumber=1,    
+	firstnumber=1,
+	numberfirstline=false
+}
+\usepackage[
+		pdfencoding=auto,% or unicode
+		psdextra,
+		]{hyperref}
+\hypersetup{pdfinfo={
+		Title={Dokumentacja Latex},
+		Author={Mariusz Piotrowski}
+}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First page of book which contains 'stuff' like: %
+%  - Book title, subtitle                         %
+%  - Book author name                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Book's title and subtitle
+\title{\Huge \textbf{Skład raportów w \LaTeX}  \\ \huge Zarządzanie dokumentacją i tekstem. }
+% Author
+\author{\textsc{dr Mariusz Piotrowski}}
+\date{\today\\wersja robocza}
+
+\begin{document}
+
+%\frontmatter
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add a dedication paragraph to dedicate your book to someone %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auto-generated table of contents, list of figures and list of tables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+
+%\mainmatter
+
+%%%%%%%%%%%
+% Preface %
+%%%%%%%%%%%
+\chapter{Informacje wstępne}
+
+Dokument ma charakter informacji o sposobach budowania raportów badawczych i dokumentacji technicznej przy użyciu \LaTeX w systemie Linux. Zaprezentowane zostaną listingi kodu, które bazują na modyfikowanej klasie: book.\par
+Wszystkie przykłady zostały przetestowane w środowisku Linux (Arch)\footnote{\url{https://www.archlinux.org/}}, które wykorzystuje dystrybucję TeXLive. Pakiety \LaTeX pochodzą z metapakietu texlive-most.\footnote{\url{https://www.archlinux.org/groups/x86_64/texlive-most/}}\par
+Do pracy z pakietem \LaTeX użyty został program Texstudio.\footnote{\url{http://www.texstudio.org/}}. Domyślnym kompilatorem dokumentów pozostał PdfLaTeX.\par
+Podstawą do budowy dokumentu był szablon Easy Book.\footnote{\url{https://www.sharelatex.com/templates/books/easy-book}}
+\paragraph{Twarde spacje.} Aby dodać twardą spację, która nie łamie się na końcach wersu - należy wstawić:
+\begin{verbatim}
+\,
+\end{verbatim}
+\chapter{Szablon dokumentu. Preambuła}
+
+Założeniem było stworzenie dokumentu, który:
+ \begin{itemize}
+ \item uwzględnia specyfikę języka polskiego;
+ \item pozwala na użycie listingów komend, wraz z wyróżnieniem komentarzy;
+ \item używa długich tabel;
+ \item pozwala na dodawania aneksu;
+ \item tekst jest wyśrodkowany.
+ \end{itemize}
+Klasa dokumentu <<book>> pozwala na tekst wychodzący dość swobodnie poza marginesy, szczególnie przydatne jest to, kiedy używa się listingów. W przypadku utrzymania większych rygorów względem polskiej tradycji typograficznej można użyć klasy <<mwbk>>.\footnote{Więcej o spolszczeniu \LaTeX w prezentacji{\url{http://www.is.umk.pl/~zelek/kurst/kkt-w5.pdf}}}
+	
+Klasa <<book>> jest w prawie całkowicie zgodna z klasą <<report>>, różnicą jest np. obecność nagłówków strony w <<book>>, a ich brak w klasie <<report>>.
+\begin{center}
+	\begin{tabular}{|l|l|}
+	\hline 
+\textbf{Klasa oryginaln}a	& \textbf{Polska klasa} \\ 
+	\hline 
+article	&  mwart \\ 
+	\hline 
+report	&  mwrep \\ 
+	\hline 
+book	& mwbk \\ 
+	\hline 
+\end{tabular} 
+\end{center}
+\bigskip
+W definicji dokumentu zostały użyte więc następujące pakiety dodatkowe:
+\begin{verbatim}
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ucs}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{polski}
+%\usepackage[polish]{babel}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{chngpage}
+\usepackage{subcaption} 
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{epstopdf}
+\usepackage{longtable}
+\usepackage[toc,page]{appendix}
+\usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{xcolor}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,commentstyle=\itshape\color{purple!40!black}}
+\lstset{
+numbers=left,
+stepnumber=1,    
+firstnumber=1,
+numberfirstline=false
+}
+\lstset{extendedchars=true,inputencoding=utf8x,literate=%
+{ą}{{\k{a}}}1
+{Ą}{{\k{A}}}1
+{ę}{{\k{e}}}1
+{Ę}{{\k{E}}}1
+{ó}{{\'o}}1
+{Ó}{{\'O}}1
+{ś}{{\'s}}1
+{Ś}{{\'S}}1
+{ł}{{\l{}}}1
+{Ł}{{\L{}}}1
+{ż}{{\.z}}1
+{Ż}{{\.Z}}1
+{ź}{{\'z}}1
+{Ź}{{\'Z}}1
+{ć}{{\'c}}1
+{Ć}{{\'C}}1
+{ń}{{\'n}}1
+{Ń}{{\'N}}1
+}
+\end{verbatim}
+\section{Lualatex}
+Przy użycia \textbf{lualatex} preambuła dotycząca języka jest krótsza:
+\begin{verbatim}
+% !TeX program = lualatex
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+
+\usepackage[
+	pdfencoding=auto,% or unicode
+	psdextra,
+	]{hyperref}
+	\hypersetup{pdfinfo={
+	Title={},
+	Author={Mariusz Piotrowski}
+	}}
+\end{verbatim}
+
+Łatwo można manipulować fontami przez dodanie parametru:
+\begin{verbatim}
+\setmainfont{Iwona}
+\end{verbatim}
+Polskie fonty komputerowe w tradycji poligraficznej to np:\\
+\begin{center}
+\begin{tabular}{|c|c|}
+	\hline 
+\textbf{Nazwa fontu}	& \textbf{Charakterystyka} \\ 
+	\hline 
+	\hline 
+Iwona	&  \\ 
+	\hline 
+Kurier	&  \\ 
+	\hline 
+Cyklop	&  \\ 
+	\hline 
+TeX Gyre Bonum	&  \\ 
+	\hline 
+TeX Gyre Termes	&  \\ 
+	\hline 
+Antykwa Torunska	&  \\ 
+	\hline 
+Antykwa Poltawskiego	&  \\ 
+	\hline
+\end{tabular} 
+\end{center}
+\chapter{Krótkie bibliografie}
+
+Do generowania krótkich bibliografii można dodać do preambuły następujące komendy:
+\begin{verbatim}
+\usepackage{filecontents}
+\begin{filecontents*}{Bibliografy.bib}
+@book{}
+\end{filecontents*}
+\usepackage[numbers]{natbib}
+\bibliographystyle{plplain}
+\end{verbatim}
+Plik Bibliografy.bib zostanie stworzony w katalogu i będzie przetwarzany przy kompilacji dokumentu. Pakietem stylu jest spolszczony pakiet plain <<plplain>>.\par
+Na końcu dokumentu należy dodać:
+\begin{verbatim}
+\nocite{*}
+\bibliography{Bibliografy}
+\end{verbatim}
+\chapter{Strona tytułowa}
+
+Strona tytułowa posiada parametr data, który można modyfikować przez wpisanie pożądanej informacji.
+Dodatkowo spisy treści dotyczą tabel, rysunków i listingów.
+\begin{verbatim}
+\title{\Huge \textbf{Skład raportów w \LaTeX} 
+ \\ \huge Zarządzanie dokumentacją i tekstem. }
+% Author
+\author{\textsc{dr Mariusz Piotrowski}}
+\date{\today\\wersja robocza}
+
+\begin{document}
+	
+	\frontmatter %do zakomentowania w klasie raport
+	\maketitle	
+\tableofcontents
+\listoffigures
+\\lstlistoflistings	
+	\mainmatter %do zakomentowania w klasie raport
+\end{verbatim}
+
+\chapter{Wstawianie grafiki}
+W celu osiągnięcia wysokiej jakości pliku wynikowego należy używać grafiki w formatach wektorowych (pdf, efs). Formaty rastrowe (png, jpg)powinny być używane w rozdzielczości 300dpi. \par
+Do przetwarzania plików pdf w eps można użyć programu Incscape i linii poleceń
+\begin{lstlisting}[language=bash,caption={Przetwarzanie pliku pdf do eps. }]
+$inkscape plik.pdf --export-eps=plik.eps
+\end{lstlisting}
+Następnie można osadzić plik w dokumencie.
+\begin{verbatim}
+\begin{figure}[h]
+	\caption{Nazwa rysunku}
+	\centerline{\includegraphics[width=16cm, height=4cm]{<sciezka do pliku}}
+	\label{figure:1}
+	\raggedbottom{Źródło: Mariusz Piotrowski, opracowanie własne}
+\end{figure}
+\end{verbatim}
+
+Tak dodany rysunek będzie wycentrowany względem teksu.\par
+Duże obrazy na całą stronę można dodawać w pozycji poziomej, aby uzyskać spójność czytania najłatwiej usunąć nagłówek i numer strony:
+\begin{verbatim}
+\begin{landscape}
+	\thispagestyle{empty}
+	\begin{figure}[p]
+		\caption{Nazwa rysunku.}
+		\centerline{\includegraphics[width=21.5cm, height=14cm]{<sciezka_do_pliku.eps}}
+		%\centering
+		\label{figure:2}
+		\raggedbottom{Źródło: Mariusz Piotrowski, opracowanie własne}
+	\end{figure} \par
+\end{landscape}
+\end{verbatim}
+W programie TexStudio podaczas kompikowania dokumentu, w którym znajduje się obraz eps pojawia się komunikat błędu. Należy wówczas zmienić w opcjach (jednorazowo) domyślny kompilator.
+
+\chapter{Wstawianie tabel}
+
+W celu wrzucenia wielostronicowej tabeli, z mniejszą czcionką należy zastosować następującą preambułę tabeli (dla 2 kolumn, o różnej szerokości):
+\begin{verbatim}
+\begin{footnotesize}
+\begin{longtable}{p{1.5cm} p{10.2cm}}
+\hline
+\multicolumn{2}{c}{Początek Tabeli}\\
+Schemat                        & Nazwa tabeli\\
+\hline
+\endfirsthead
+\hline
+\multicolumn{2}{c}{Ciąg dalszy Tabeli}\\
+Schemat                        & Nazwa tabeli\\
+\hline
+\endhead
+\hline
+\endfoot
+\hline
+\multicolumn{2}{ c }{Koniec Tabeli}\\
+\hline\hline
+\endlastfoot
+%tu wartości
+\end{longtable}
+\end{footnotesize}
+\end{verbatim}
+Dane do tabeli przetworzyć można na stronie \url{http://www.tablesgenerator.com/}.
+
+Mniejszą (jednostronicową) tabelę pokazuje ten kod:
+
+\begin{verbatim}
+\begin{table}[p!]
+\centering
+\caption{Nazwa tabeli.}
+\label{table:1}
+\scalebox{0.9} {
+\begin{tabular}{|l|l|l|}
+%tu wartości
+\end{tabular}
+}
+\raggedbottom{Źródło: Mariusz Piotrowski, opracowanie własne}
+\end{table}
+\end{verbatim}
+
+
+\end{document}

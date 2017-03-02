@@ -1,0 +1,339 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX book template                           %%
+%% Author:  Amber Jain (http://amberj.devio.us/) %%
+%% License: ISC license                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% !TeX program = lualatex
+\documentclass[a4paper,12pt,oneside,final]{book}
+\usepackage{polyglossia}
+\setdefaultlanguage{polish}
+\setmainfont{Iwona}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+%\usepackage{polski}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{chngpage}
+\usepackage{subcaption} 
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{epstopdf}
+\usepackage{longtable}
+\usepackage[toc,page]{appendix}
+\usepackage{hyperref}
+\usepackage{pdflscape}
+\usepackage{xcolor}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,commentstyle=\itshape\color{purple!40!black}}
+\lstset{
+	numbers=left,
+	stepnumber=1,    
+	firstnumber=1,
+	numberfirstline=false,
+	escapeinside={\%*}{*)}
+}
+\lstset{extendedchars=true,inputencoding=utf8x,literate=%
+{ą}{{\k{a}}}1
+{Ą}{{\k{A}}}1
+{ę}{{\k{e}}}1
+{Ę}{{\k{E}}}1
+{ó}{{\'o}}1
+{Ó}{{\'O}}1
+{ś}{{\'s}}1
+{Ś}{{\'S}}1
+{ł}{{\l{}}}1
+{Ł}{{\L{}}}1
+{ż}{{\.z}}1
+{Ż}{{\.Z}}1
+{ź}{{\'z}}1
+{Ź}{{\'Z}}1
+{ć}{{\'c}}1
+{Ć}{{\'C}}1
+{ń}{{\'n}}1
+{Ń}{{\'N}}1
+}
+
+\usepackage{filecontents}
+\begin{filecontents*}{Bibliografyr.bib}
+@book{Lamigueiro2014,
+	abstract = {data graphic is not only a static image, but it also tells a story about the data. It activates cognitive processes that are able to detect patterns and discover information not readily available with the raw data. This is particularly true for time series, spatial, and space-time datasets. Focusing on the exploration of data with visual methods, Displaying Time Series, Spatial, and Space-Time Data with R presents methods and R code for producing high-quality graphics of time series, spatial, and space-time data. Practical examples using real-world datasets help you understand how to apply the methods and code. The book illustrates how to display a dataset starting with an easy and direct approach and progressively adding improvements that involve more complexity. Each of the book's three parts is devoted to different types of data. In each part, the chapters are grouped according to the various visualization methods or data characteristics. Web Resource Along with the main graphics from the text, the author's website offers access to the datasets used in the examples as well as the full R code. This combination of freely available code and data enables you to practice with the methods and modify the code to suit your own needs.},
+	address = {Madrid},
+	author = {Lamigueiro, Oscar Perpi{\~{n}}{\'{a}}n},
+	file = {:home/mariusz/Pobrane/spatial r books/(Chapman {\&} Hall{\_}CRC The R Series) Oscar Perpinan Lamigueiro-Displaying Time Series, Spatial, and Space-Time Data with R-Taylor and Francis, CRC Press (2014).pdf:pdf},
+	isbn = {9781466565227},
+	pages = {206},
+	publisher = {Chapman {\&} Hall/CRC},
+	title = {{Displaying Time Series, Spatial, and Space-Time Data with R}},
+	url = {http://books.google.com/books?hl=en{\&}lr={\&}id=Q5A-AwAAQBAJ{\&}oi=fnd{\&}pg=PP1{\&}dq={\%}22Version+of+Figures+in{\%}22+{\%}22Figure+3.11+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.{\%}22+{\&}ots=zmsKtV{\_}cg1{\&}sig=CweYgohoKFP-jdHF},
+	year = {2014}
+}
+@book{Bivand2013,
+	abstract = {Average Customer Rating: 5.0 Rating: 4 Overall good, but could be less technical I was really excited when I ordered this book as it looked like the type of material I had been looking for for ages, but as it turns out I am mildly disappointed in it, primarily because I found the text somewhat hard to grasp and the code not particularly well explained. It is still a very good read though and certainly helped me enhance my knowledge of statistical analyses in R. I would definitely recommend it to anyone looking to examine spatial data in R, but there is a bit of homework to do to be able to understand how all the pieces fit together. Rating: 5 Just what is needed This book fills a gap in the Spatial Statistics literature. Most of the treatises are heavy on the math, and I find it difficult to bridge the gap between the formulas and applying them. The modules for R take care of this for you and leave you to interpret the result. This book covers most of these modules and demonstrates how to use them. Really worth getting. There is also the ESRI Guide to GIS Analysis Vol 2, but it is more of an introductory text. Rating: 5 Excelent Book! Do you know that felling you may have when you found exactly what you were looking for? Well, that was the felling I had when started to read this book. It brings detailed information about how you can and should use the spatial data analysis resources of R, with interactive examples and enlighten explanations. You will really understand what you are doing and will find ways to represent it the best way you could. Rating: 5 Lots of information, clearly presented. This is not a book for a beginner, but is an excellent book for two groups of readers: those who have some background with R and wish to learn about its capabilities for spatial statistics; and those with some background in spatial statistics who wish to learn how to use R. The authors have been the main developers of the spatial statistics packages on R, and therefore know the packages intimately. But the authors also have a deep knowledge of the spatial statistics literature, and I found myself learning something new about these methods in every chapter. Everyone serious about spatial statistics should see what R has to offer. This book is the easiest way to do that. Rating: 5 The best practial introduction to R spatial The R spatial packages are the leading edge for spatial analysis and spatial statistics. This book, by the primary developers of the R Spatial packages, is the best introduction to the subject that I have seen. Now, if you are comfortable with it, you can dive an and download R and R spatial and go to town. But if you need some help, this is a good place to start. This would also make a good textbook for a class on spatial analysis.},
+	address = {New York, Heidelberg, Dordrecht, London},
+	author = {Bivand, Roger S and Pebesma, Edzer J and G{\'{o}}mez-Rubio, Virgilio},
+	doi = {10.1007/978-1-4614-7618-4},
+	file = {:home/mariusz/Pobrane/spatial r books/(Use R!) Roger S. Bivand, Edzer Pebesma, Virgilio G{\'{o}}mez-Rubio-Applied Spatial Data Analysis with R-Springer (2013).pdf:pdf},
+	isbn = {978-1-4614-7618-4},
+	pages = {405},
+	publisher = {Springer},
+	title = {{Applied spatial data analysis with R}},
+	url = {http://link.springer.com/content/pdf/10.1007/978-1-4614-7618-4.pdf},
+	year = {2013}
+}
+@inproceedings{Zielstra2015,
+author = {Zielstra, Dennis and Tonini, Francesco},
+booktitle = {North Carolina State University Geospatial Analytics Forum},
+file = {:home/mariusz/Pobrane/spatial r books/Zielstra{\_}Tonini{\_}021215.pdf:pdf},
+title = {{Analysis of Big Spatial Data with PostgreSQL / PostGIS and R – Case Studies in OpenStreetMap and Interactive Web Mapping from R PostgreSQL / PostGIS}},
+year = {2015}
+}
+@book{Biecek2017,
+	address = {Warszawa},
+	author = {Biecek, Przemys{\l}aw},
+	mendeley-groups = {Narzedzia R},
+	publisher = {Oficyna Wydawnicza GiS},
+	title = {{Przewodnik po pakiecie R}},
+	year = {2017}
+}
+@book{biecek2012odkrywac,
+	address = {Warszawa},
+	author = {Biecek, Przemys{\l}aw},
+	edition = {Drugie},
+	isbn = {9788393969500},
+	mendeley-groups = {Metodologia,Narzedzia R},
+	publisher = {Fundacja Naukowa SmarterPoland.pl},
+	title = {{Odkrywac! Ujawniac! Objasniac! Zbior esejow o sztuce prezentowania danych}},
+	url = {https://books.google.pl/books?id=wnO-oQEACAAJ},
+	year = {2016}
+}
+ @Book{,
+	author = {Hadley Wickham},
+	title = {ggplot2: Elegant Graphics for Data Analysis},
+	publisher = {Springer-Verlag New York},
+	year = {2009},
+	isbn = {978-0-387-98140-6},
+	url = {http://ggplot2.org},
+}
+@book{Chang:2013:RGC:2484533,
+	author = {Chang, Winston},
+	title = {R Graphics Cookbook},
+	year = {2013},
+	isbn = {1449316956, 9781449316952},
+	publisher = {O'Reilly Media, Inc.},
+} 
+@book{field2012discovering,
+	title={Discovering Statistics Using R},
+	author={Field, Andrew and Miles, Jeremy and Field, Zoe},
+	isbn={9781446258460},
+	url={https://books.google.pl/books?id=wd2K2zC3swIC},
+	year={2012},
+	publisher={SAGE Publications}
+}
+
+\end{filecontents*}
+\usepackage{marginnote}
+\usepackage[numbers]{natbib}
+\bibliographystyle{plplain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 'dedication' environment: To add a dedication paragraph at the start of book %
+% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedright
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter quote at the start of chapter        %
+% Source: http://tex.stackexchange.com/a/53380 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First page of book which contains 'stuff' like: %
+%  - Book title, subtitle                         %
+%  - Book author name                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Book's title and subtitle
+\title{\Huge \textbf{Analizy przestrzenne w R}  \\ \huge Podstawy analiz i wizualizacji danych. }
+% Author
+\author{\textsc{dr Mariusz Piotrowski}}
+\date{\today\\wersja robocza}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Add a dedication paragraph to dedicate your book to someone %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auto-generated table of contents, list of figures and list of tables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\lstlistoflistings
+
+\mainmatter
+
+%%%%%%%%%%%
+% Preface %
+%%%%%%%%%%%
+\chapter{Informacje wstępne.}
+
+Kurs podstawowy R można rozpocząć od zainstalowania pakietu w programie R:
+\begin{lstlisting}[language=R,caption={Interaktywny kurs R - instalacja i uruchomienie. }]
+install.packages("swirl")
+library("swirl")
+swirl()
+\end{lstlisting}
+Dodatkowe kursy można doinstalować później. Znajdują się one na stronie \url{https://github.com/swirldev/swirl_courses}.
+
+Zagadnienia bazują na różnorodnych materiałach. Podstawowe strony z analizą przestrzenną to:
+\begin{itemize}
+\item \url{http://spatial-analyst.net/wiki/index.php?title=Software}
+\item \url{http://pakillo.github.io/R-GIS-tutorial/}
+\item \url{http://spatial.ly/r/}
+\item \url{http://oscarperpinan.github.io/spacetime-vis/}
+\end{itemize}
+oraz \url{https://www.r-bloggers.com/the-guerilla-guide-to-r/}
+
+
+
+\chapter{Konfiguracja środowiska R.}
+
+\chapter{Połączenie z bazą Postgresql.}
+
+\chapter{Typy danych.}
+
+Dane w R przechowywane mogą być w formie:
+\begin{description}
+	\item[wektora wartości] - kolekcja wartości (np. 1,2,3)należące do tej samej klasy. Mogą to być:
+	\begin{itemize}
+		\item \textbf{[num]} - wartości liczbowe z wartościami dziesiętnymi
+		\item \textbf{[int]} - liczby całkowite - bez wartości dziesiętnych
+		\item \textbf{[logi]} - operator logiczny - prawda/fałsz
+		\item \textbf{[factor]} - zmienne jakościowe (jeśli są uporządkowane wówczas mają klase \textbf{[ordered]})
+	\end{itemize}
+	\item[time.series -ts] - wektor + zmienna z informacją o dacie
+	\item[data.frame] -(ramka danych) dane przechowywane w układzie: \begin{itemize}
+		\item kolumny - zmienne
+		\item wiersze - obserwacje
+	\end{itemize}
+	\item[listy] - struktura, która pozwala na zagnieżdżanie w niej innych elementów - np. ramek danych, czy innych list.
+\end{description}
+\section{Wektor wartości.}
+Najprostszy sposób tworzenia wektora wartości to użycie funkcji \textit{concatenate} /połącz/ (c).
+\begin{lstlisting}[language=R,caption={Tworzenie wektora danych funkcją \textit{concatenate} c(). }]
+ x <- c(1,2,3,4)
+\end{lstlisting}
+
+\section[Indeksowanie danych]{Odwoływanie się do wartości}
+
+Indeksowanie danych, czyli odwoływanie się do określonych wartości z wektora, lub ramki danych - odbywa się przez użycie nawiasu kwadratowego [\,]. 
+\paragraph{Wektor wartości}
+Dla wektora [\,] określa pozycję wartości - np:
+\begin{lstlisting}[language=R,caption={ Wskazanie konkretynych wartości z wektora.}]
+y <- x[c(2,3)] 
+\end{lstlisting}
+Mogą być użyte ciągi liczbowe:
+\begin{lstlisting}[language=R,caption={Wskazanie ciągu wartości z wektora. }]
+y <- x[2:4]
+\end{lstlisting}
+Mogą być używane operatory logiczne:
+\begin{lstlisting}[language=R,caption={Wskazanie wartości przez użycie operatora logicznego. }]
+y <- x[x > 3]
+\end{lstlisting}
+\paragraph{Ramki danych}
+Dla ramek danych podaje się indeks wiersza, następnie indeks kolumny.
+W pakiecie R wbudowana jest ramka danych - mtcars. Kolejny przykład odwołuje się do tych danych. 
+\begin{lstlisting}[language=R,caption={Wskazanie wartości z ramki danych - ciąg danych. }]
+z <- mtcars[,1:3]
+\end{lstlisting}
+Efektem będzie użycie wszystkich wierszy i kolumn od 1 do 3. 
+W ramach indeksu można filtrować dane używając operatorów logicznych.
+\begin{lstlisting}[language=R,caption={Wskazanie konkretnych wartości z ramki danych.}]
+ mtcars[mtcars[, "mpg"] > 21,]
+\end{lstlisting}
+Funkcja pokaże tylko wiersze, które spełniają warunek - w kolumnie mpg wartości sa większe od 21. Pokazane są w wyniku wszystkie kolumny.\par
+W przypadku, kiedy chcemy odwołać się do jednej kolumny ( i uzyskać zamiast ramki danych - wektor) należy użyć znaku \$\ .\footnote{W RStudio po wpisaniu znaku \$\ pojawią się podpowiedzi z nazwami kolumn.}
+ 
+ \begin{lstlisting}[language=R,caption={Wybór jednej kolumny. Wyodrębnienie wektora wartości z ramki danych. }]
+ mtcars$mpg
+ \end{lstlisting}
+\paragraph{Dodawanie nowej kolumny w ramce danych.} Używając funkcji \$\ można dodawać nowe kolumny.
+\begin{lstlisting}[language=R,caption={Dodawanie nowej kolumny. }]
+mtcars$mpgtest <- mtcars$mpg * 2
+\end{lstlisting}
+W efekcie powstanie nowa kolumna mpgtest,której wartości są pomnożonymi razy 2 wartościami z kolumny mpg.
+
+\chapter{Podstawowe operacje statystyczne.}
+
+\paragraph{Statystyki opisowe} - W przypadku zmienny ilościowych [numeric] podstawowe statystyki można uzyskać funkcją - \textit{summary()}.\par
+ Odpowiednikiem jest tzw. pięć liczb Turkeya - \textit{fivenum()}:
+\begin{itemize}
+	\item wartość minimalna
+	\item granica pierwszego kwartyla
+	\item mediana
+	\item średnia (tylko w funkcji \textit{summary()})
+	\item granica trzeciego kwartyla
+	\item wartość maksymalna
+\end{itemize}
+W przypadku zmiennych jakościowych funkcja \textit{summary()} pokazuje tablicę częstości zmiennej (uwzględniane są braki danych). Dzięki funkcji \textit{table()} można zbudować tabele kontyngencji (bez braków danych).
+\begin{lstlisting}[language=R,caption={Podsumowanie statystyk opisowych}]
+summary(mtcars$mpg)
+\end{lstlisting}
+
+\paragraph{Korelacja} - Tworzenie macierzy korelacji odbywa się następująco:
+\begin{lstlisting}[language=R,caption={Korelacja}]
+cor(mtcars[,1:5])
+#lub wybór konkretnych kolumn 
+cor(mtcars[,c(1,4)])
+\end{lstlisting}
+
+\chapter{Tworzenie wykresów.}
+\section{Pakiet podstawowy.}
+Prosty mechanizm wizualizacji danych pozwalających na prezentacje statystyk.
+\subsection{Wykres słupkowy}
+Pozwala na prezentację jednej, lub dwóch zmiennych kategorialnych. Do rysowania wykresu słupkowego służy funkcja \textit{barplot()}. \paragraph*{Częstości} sa generowane funkcją \textit{table()}.
+\begin{lstlisting}[language=R,caption={Rysowanie wykresu słupkowego. }]
+tab <- table(mtcars$cyl)
+barplot(tab, horiz = FALSE, las = 1)
+\end{lstlisting}
+
+\subsection{Wykres pudełkowy.}
+
+\subsection{Wykres kropkowy.}
+\section{ Pakiet ggplot2.}
+Tutorial \url{http://r-statistics.co/ggplot2-Tutorial-With-R.html}
+
+\chapter{Tworzenie map. Pakiet ggplot2.}
+Kurs online \url{https://www.datacamp.com/courses/working-with-geospatial-data-in-r}
+Mapa świata \url{https://www.r-bloggers.com/how-to-make-a-global-map-in-r-step-by-step/}
+
+\nocite{*}
+\bibliography{Bibliografyr}
+\end{document}
