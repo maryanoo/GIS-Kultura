@@ -1,10 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% LaTeX book template                           %%
-%% Author:  Amber Jain (http://amberj.devio.us/) %%
-%% License: ISC license                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % !TeX program = lualatex
-\documentclass[a4paper,11pt,oneside]{book}
+\documentclass[a4paper,12pt,oneside,final]{mwrep}
 \usepackage{polyglossia}
 \setdefaultlanguage{polish}
 \setmainfont{Iwona}
@@ -13,98 +10,92 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage[bookmarks]{hyperref}
+\usepackage{tcolorbox}
+\usepackage{url}
 \usepackage{lscape}
 \usepackage{array}
 \usepackage{chngpage}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 \usepackage{subcaption} 
+\captionsetup{compatibility=false}
 \usepackage{listings}
 \usepackage{underscore}
-\usepackage{epstopdf}
 \usepackage{longtable}
 \usepackage[toc,page]{appendix}
-\usepackage{hyperref}
+\usepackage{epstopdf}
 \usepackage{pdflscape}
 \usepackage{xcolor}
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
 \lstset{framextopmargin=50pt,commentstyle=\itshape\color{purple!40!black}}
 \lstset{
-	numbers=left,
-	stepnumber=1,    
-	firstnumber=1,
-	numberfirstline=false
+	escapeinside={\%*}{*)}
 }
 \lstset{extendedchars=true,inputencoding=utf8x,literate=%
-{ą}{{\k{a}}}1
-{Ą}{{\k{A}}}1
-{ę}{{\k{e}}}1
-{Ę}{{\k{E}}}1
-{ó}{{\'o}}1
-{Ó}{{\'O}}1
-{ś}{{\'s}}1
-{Ś}{{\'S}}1
-{ł}{{\l{}}}1
-{Ł}{{\L{}}}1
-{ż}{{\.z}}1
-{Ż}{{\.Z}}1
-{ź}{{\'z}}1
-{Ź}{{\'Z}}1
-{ć}{{\'c}}1
-{Ć}{{\'C}}1
-{ń}{{\'n}}1
-{Ń}{{\'N}}1
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 'dedication' environment: To add a dedication paragraph at the start of book %
-% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{dedication}
-{
-   \cleardoublepage
-   \thispagestyle{empty}
-   \vspace*{\stretch{1}}
-   \hfill\begin{minipage}[t]{0.66\textwidth}
-   \raggedright
-}
-{
-   \end{minipage}
-   \vspace*{\stretch{3}}
-   \clearpage
+	{ą}{{\k{a}}}1
+	{Ą}{{\k{A}}}1
+	{ę}{{\k{e}}}1
+	{Ę}{{\k{E}}}1
+	{ó}{{\'o}}1
+	{Ó}{{\'O}}1
+	{ś}{{\'s}}1
+	{Ś}{{\'S}}1
+	{ł}{{\l{}}}1
+	{Ł}{{\L{}}}1
+	{ż}{{\.z}}1
+	{Ż}{{\.Z}}1
+	{ź}{{\'z}}1
+	{Ź}{{\'Z}}1
+	{ć}{{\'c}}1
+	{Ć}{{\'C}}1
+	{ń}{{\'n}}1
+	{Ń}{{\'N}}1
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Chapter quote at the start of chapter        %
-% Source: http://tex.stackexchange.com/a/53380 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\makeatletter
-\renewcommand{\@chapapp}{}% Not necessary...
-\newenvironment{chapquote}[2][2em]
-  {\setlength{\@tempdima}{#1}%
-   \def\chapquote@author{#2}%
-   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
-   \itshape}
-  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
-\makeatother
+\usepackage{filecontents}
+\begin{filecontents*}{Bibliografy.bib}
+	@book{Corti:2014:PC:2616182,
+		author = {Corti, Paolo and Mather, Stephen Vincent and Kraft, Thomas J and Park, Borie},
+		isbn = {1849518661, 9781849518666},
+		publisher = {Packt Publishing},
+		title = {{PostGIS Cookbook}},
+		year = {2014}
+	}
+	@book{Obe:2011:PA:2018871,
+		address = {Greenwich, CT, USA},
+		author = {Obe, Regina and Hsu, Leo},
+		isbn = {1935182269, 9781935182269},
+		publisher = {Manning Publications Co.},
+		title = {{PostGIS in Action}},
+		year = {2011}
+	}
+	@book{Iwanczak2013,
+		address = {Gliwice},
+		author = {Iwa{\'{n}}czak, Bart{\l}omiej},
+		publisher = {Helion},
+		title = {{Quantium GIS. Tworzenie i analiza map}},
+		year = {2013}
+	}
+	
+\end{filecontents*}
+\usepackage[numbers]{natbib}
+\bibliographystyle{plplain}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% First page of book which contains 'stuff' like: %
-%  - Book title, subtitle                         %
-%  - Book author name                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Book's title and subtitle
-\title{\Huge \textbf{Schematy GIS Kultura}  \\ \huge Zarządzanie danymi Openstreetmap. }
+\title{\Huge \textbf{Schematy GIS Kultura}  \\ \huge Zarządzanie bazami i danymi OpenStreetMap. }
 % Author
 \author{\textsc{dr Mariusz Piotrowski}}
 \date{\today\\wersja robocza}
 
 \begin{document}
 
-\frontmatter
+%\frontmatter
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Add a dedication paragraph to dedicate your book to someone %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,17 +103,61 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \tableofcontents
 \listoffigures
-
-\mainmatter
+\lstlistoflistings
+%\mainmatter
 
 %%%%%%%%%%%
 % Preface %
 %%%%%%%%%%%
 \chapter*{Informacje wstępne}
 Dokument ma charakter technicznego wprowadzenia w projekt GIS Kultura. Prezentowane są narzędzia i sposoby porządkowania zgromadzonych danych.\par
-Dzięki zaprezentowanym metodą i zmodyfikowanym plikom znajdującym się w Aneksie, możliwa jest replikacja systemu we własnym środowisku użytkownika. Dokument prezentuje jedynie fragment pracy na zgromadzonych bazach danych.
+Dzięki zaprezentowanym metodom i zmodyfikowanym plikom znajdującym się w Aneksie, możliwa jest replikacja systemu we własnym środowisku. Komendy skryptów testowane były w systemach Linux i macOS. Niniejszy plik zawiera kody i komendy, ale zdecydowanie odradzam używanie ich bez zrozumienia sensu działania. Dodatkowo w czasie kopiowania z pliku pdf mogą pojawić się błędy w spacjach i końcach linii.
+ Dokument prezentuje jedynie fragment pracy na zgromadzonych bazach danych.\par
+\paragraph{O badaniach OSM.} 
+W przyjętej perspektywie naukowej dane OSM stanowią dane, które używa się w celach poznawczych i opisowych. Są traktowane jako źródło wiedzy o rzeczywistości. Przyjąć należy jednak pewną dozę sceptycyzmu dotyczącego samego źródła informacji. OpenStreetMap jest projektem społecznościowym, w którym standardy powstały w drodze konsensusu, który nie zawsze respektuje ustalenia innych projektów, czy zwyczajów klasyfikacji obiektów.\par
+Osobne klasy problemów badawczych, które dotyczą OSM można określić jako:
+\begin{itemize}
+	\item badania nad jakością danych (obszar refleksji geografów i kartografów);
+	\item badania nad czynnikami społecznymi, które wpływają na kontrybucję;
+	\item badania dotyczące społecznych praktyk uczestników projektu OSM;
+	\item badania nad procesami klasyfikowania i typologizacji obiektów;
+	
+\end{itemize}
 
 
+\begin{tcolorbox}
+Najważniejszym wyzwaniem w projekcie jest uwzględnienie w bazie znacznika czasu, który pozwoli na wykonywanie analiz szeregów czasowych. Wymaga to stworzenia infrastruktury aktualizacji i przechowywania danych.
+Np. Przyrostu określonych typów obiektów.
+\end{tcolorbox}
+
+\chapter{Specyfika projektu OSM}
+\section{Architektura systemu OpenStreetMap.}
+
+\begin{landscape}
+	\begin{figure}[htp]
+		\caption{Pełne dane OSM.}
+	\centering
+	\includegraphics[width=1.3\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz7.eps}
+		\label{}
+	\end{figure}
+\end{landscape}
+
+Dane do projektu trafiają z różnych źródeł. Projekt OSM nie jest więc wyłącznie zasilany przez dane zbierane (z rzeczywistości) przez użytkowników/osoby mapujące. Społecznościowy charakter oznacza, że dane są zarządzane przez społeczność. \par
+Źródła danych w projekcie:\footnote{W przypadku OSM termin VGI \textit{(Volunteered geographic information)} nie pokazuje udziału różnorodnych danych w systemie.}
+\begin{itemize}
+	\item dane z ortofotomap do tworzenia obrysów,(serwis Bing ale już nie do np. określania nazw ulic)
+	\item dane administracji publicznej\footnote{Aczkolwiek status danych geoportalu jest żywo dyskutowany. Analiza prawna na stronie: \url{http://ump.fuw.edu.pl/wiki/Geoportal\#Odpowied.C5.BA\_GUGiK\_08.2013\_\-\_us.C5.82ugi\_Geoportalu\_nieodp.C5.82atnie\_bez\_ogranicze.C5.84}}
+	\item zbierane smartfonami (popularna aplikacja, która umożliwia szybkie edycje POI - maps.me)
+	\item zbierane odbiornikami GPS
+	\item rysowane \textit{ręcznie}
+\end{itemize}
+Nie ma więc jednolitego standardu, które określa jakiego rodzaju dane znajdują się w bazie. Sama jakość danych jest przedmiotem wielu opracowań.\footnote{Nowak Da Costa J., Bielecka E., and Całka B., Jakość danych OpenStreetMap - analiza informacji o budynkach na terenie Siedlecczyzny, „Roczniki Geomatyki [Annals of Geomatics]”, 2016, t.14, no 2 (72), ss. 193–203.}
+
+\section{Tagi}
+Każdy obiekt w OSM może być opisany jednym unikalnym kluczem i wartością. Jednak każdy obiekt może być opisany różnym zestawem kluczy i wartości. System pozwala na precyzyjne opisanie obiektów, ale nie zawsze jest to praktykowane. Typowy błąd można przedstawić na przykładzie klucza \textit{building}.\par
+Dla klucza \textbf{building} istnieje 10799 różnorodnych wartości\footnote{\url{https://taginfo.openstreetmap.org/keys/building\#values}}
+jednak najczęściej używana (81 \%) to wartość - \textit{yes}. Pojawiają się też takie wartości jak - \textit{?} (321 razy), - \textit{fixme}, - \textit{unknown} itd. \par
+W celu wyodrębnienia tych wszystkich danych została użyta metoda precyzyjna - wyodrębnienia najpopularniejszych tagów building (w nomenklaturze building_(\textit{nazwa wartości})) i tag ogólny, który zbiera elementy nie sprecyzowane wcześniej (building).
 \chapter{Pobieranie danych}
 
 
@@ -132,7 +167,7 @@ Dzięki zaprezentowanym metodą i zmodyfikowanym plikom znajdującym się w Anek
 Pobieranie danych Openstreemap ze strony \url{http://download.geofabrik.de/europe/poland.html}. \par
 W środowisku Linux
 \noindent Pobierz najnowsze dane:
-\begin{lstlisting}[language=bash]
+\begin{lstlisting} [language=bash, caption={Komenda bash}]
 $ wget http://download.geofabrik.de/europe/poland-latest.osm.pbf
 \end{lstlisting}
 
@@ -152,13 +187,22 @@ Stworzenie bazy danych postgres z zarejestrowanymi dodatkami: \begin{itemize}
 Baza danych "gis-osm". W schematach graficznych może funkcjonować jako gis-access.
 
 W środowisku Linux
-\noindent Po zainstalowaniu i konfiguracji Postgresql (użytkownik Postgres). 
+\noindent Po zainstalowaniu i konfiguracji Postgresql (użytkownik Postgres - przełączenie się na użytkownika ). Kolejność komend - przełączenie się na użytkownika postgres, zalogowanie się do środowiska postgresql, usunięcie istniejącej bazy danych gis-osm, wyjście ze środowiska, utworzenie nowej bazy danych gis-osm, utworzenie nowych dodatków w bazie.
+
 \begin{lstlisting}[language=bash]
-$ createdb gis-osm
-$ psql -d gis-osm -c 'CREATE EXTENSION postgis; 
-	CREATE EXTENSION hstore; 
-	CREATE EXTENSION pgrouting;'
+sudo -u postgres -i
+psql
+DROP DATABASE gis-osm
+\q
+createdb gis-osm
+psql -d gis-osm -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore; 	CREATE EXTENSION pgrouting;'
 \end{lstlisting}
+
+\section{Upgrade bazy postgresql lub postgis/pgrouting}
+
+Najprostszą metodą upgradu do pełnej wersji postgresql jest backup bazy, zatrzymanie serwera (w Linuksie np. sudo systemctl stop postgresql.service) usunięcie katalogu /var/lib/postgres/data/ . Następnie inicjalizacja nowej bazy postgres i uruchomienie serwera postresql. \par
+\subsection{Aktualizacja pakietów w Arch Linux}
+Nowe wersje oprogramowania mogą wymagać przebudowania pakietów. Najnowsze wersje postgisa i pgroutingu znajdują się w serwisie github. Można spróbować ręcznej aktualizacji pakietów wykorzystując system budowy pakietów Arch Linux - aur. Przy użyciu komendy  yaourt --m-arg "--skippgpcheck" -S . Pominięte zostanie sprawdzenie sumy kontrolnej, dzięki temu można podmienić np. wersję pakietu do zbudowania.  (to do: yaourt nie jest już wspierany, używana powinna być metoda dla menadżera - trizen)
 
 \section{Narzędzia do konwersji danych Openstreetmap}
 
@@ -177,20 +221,19 @@ Przygotowany i zmodyfikowany plik default.style znajduje się w
 Dodatku A.
 
 \noindent Po stworzeniu lub modyfikacji pliku default.style można przystąpić do wypełniania danymi osm:
-\begin{lstlisting}[language=bash]
-$ osm2pgsql -s --hstore -d gis-osm 
+\begin{lstlisting}[language=bash,caption={Komenda bash}]]
+osm2pgsql -s -U postgres --hstore -d gis-osm 
  --style /home/mariusz/default.style 
- --multi-geometry poland-latest.osm.pbf
+ --multi-geometry --extra-attributes poland-latest.osm.pbf
 \end{lstlisting}
-Proces może trwać ponad 2 godziny i potrzebnej jest co najmniej 8GB pamięci.
+Proces może trwać ponad 2 godziny i potrzebnej jest co najmniej 8GB pamięci. Program w październiku 2017 roku był w wersji 0.95-dev.
 
 Potencjalny skrypt do aktualizacji danych z osm
-\begin{lstlisting}[ language=bash]
+\begin{lstlisting}[ language=bash, caption={Skrypt bash}]
 #!/bin/sh
 DATA=`date +%j`
 DATA1=`expr $DATA + 20`
-# bashu sprawdza rok
-#komenda - sprawdź, który z kolei dzień w roku
+# bashu sprawdza dzień i dodaje przesunięcie
 wget http://download.geofabrik.de/europe/poland-updates/000/001/$DATA1.osc.gz
 osm2pgsql --append -s --hstore -d gis-access-ok --style /home/mariusz/default.style --multi-geometry $DATA1.osc.gz
 \end{lstlisting}
@@ -199,23 +242,116 @@ osm2pgsql --append -s --hstore -d gis-access-ok --style /home/mariusz/default.st
 \begin{landscape}
 \begin{figure}[htp]
 \caption{Pełne dane OSM.}
-\centerline{\includegraphics[scale=0.45]{/home/mariusz/Obrazy/schematygislatex/obraz1.png}}
-
+\centering
+\includegraphics[width=1.6\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz1a.eps}
 \label{}
 \end{figure}
 \end{landscape}
+
+Pełen schemat danych prezentuje Tabela \ref{table:1}
+
+
+
+
+
+	\begin{longtable}{l|p{4.2cm}|l}
+
+	\caption{Struktura tabeli w bazie postgresql}
+	\label{table:1}
+\endfirsthead	
+		Nazwa klucza (key) & typ zmiennej & charakterystyka   \\\hline
+	 osm_id & bigint & unikalne id \\
+	access & text & \\
+		addr:housename    & text     &      \\
+		addr:housenumber   & text           \\
+		addr:interpolation & text           \\\hline
+		admin\_level       & text     & dane granic administracyjnych itp.      \\\hline
+		aerialway          & text           \\
+		aeroway            & text           \\
+		amenity            & text     & Typy wartości (\textit{value}) w załączniku C      \\\hline
+		area               & text           \\
+		barrier            & text           \\
+		bicycle            & text           \\
+		brand              & text           \\
+		bridge             & text           \\
+		boundary           & text           \\
+		building           & text  & Typy wartości (\textit{value}) w załączniku C          \\\hline
+		capital            & text           \\
+		construction       & text           \\
+		covered            & text           \\
+		culvert            & text           \\
+		cutting            & text           \\
+		denomination       & text           \\
+		disused            & text           \\
+		ele                & text           \\
+		embankment         & text           \\
+		foot               & text           \\
+		generator:source   & text           \\
+		harbour            & text           \\
+		highway            & text           \\
+		historic           & text    & Typy wartości (\textit{value}) w załączniku C        \\\hline
+		horse              & text           \\
+		intermittent       & text           \\
+		junction           & text           \\\hline
+		landuse            & text    & Typy wartości (\textit{value}) w załączniku C        \\
+		layer              & text           \\
+		leisure            & text    & Typy wartości (\textit{value}) w załączniku C        \\\hline
+		lock               & text           \\
+		man\_made          & text    & Typy wartości (\textit{value}) w załączniku C        \\
+		military           & text    & Typy wartości (\textit{value}) w załączniku C        \\
+		motorcar           & text           \\
+		name               & text           \\
+		natural            & text  & Typy wartości (\textit{value}) w załączniku C          \\
+		office             & text    & Typy wartości (\textit{value}) w załączniku C        \\
+		oneway             & text           \\
+		operator           & text           \\
+		place              & text           \\
+		population         & text           \\
+		power              & text           \\
+		power\_source      & text           \\
+		public\_transport  & text           \\
+		railway            & text           \\
+		ref                & text           \\
+		religion           & text           \\
+		route              & text           \\
+		service            & text           \\
+		shop               & text    & Typy wartości (\textit{value}) w załączniku C        \\
+		sport              & text           \\
+		surface            & text           \\
+		toll               & text           \\
+		tourism            & text  & Typy wartości (\textit{value}) w załączniku C          \\
+		tower:type         & text           \\
+		tunnel             & text           \\
+		water              & text           \\
+		waterway           & text           \\
+		wetland            & text           \\
+		width              & text           \\
+		wood               & text           \\\hline
+		opening\_hours     & text  & wyodrębnione        \\
+		website            & text           \\
+		url                & text           \\
+		wikipedia          & text           \\
+		email              & text           \\
+		phone              & text           \\\hline
+		wheelchair         & text     & niepełnosprawni ruchowo      \\
+		tactile\_paving    & text           \\\hline
+		z\_order           & integer        \\
+	\textbf{	tags}               &\textbf{ hstore}  & tagi sporadyczne       \\\hline
+	\textbf{	way            }    & \textbf{geometry(Point 3857)}
+	\end{longtable}
+
 
 \subsection{Dane punktowe - POI}
 
 Do konwersji użyto programu \url{https://github.com/MorbZ/OsmPoisPbf}. wymaga on zainstalowanego środowiska Java.
 \begin{lstlisting}[ language=bash]
-$ java -Xmx4g -jar osmpois.jar --filterFile filter.txt 
+$ java -Xmx4g -jar osmpois.jar -p 4 --filterFile filter.txt 
 	--outputTag name,wheelchair,url,website,opening_hours
 	 -r -u poland-latest.osm.pbf
 \end{lstlisting}
 atrybuty -r i -u poszerzają wyszukiwanie o dane o relacjach.\par
 Zmodyfikowany plik filter.txt znajduje się w Dodatku B.\par
-Efektem działania programu jest plik poland-latest.csv. Separatorem pola jest znak |.
+Efektem działania programu jest plik poland-latest.csv. Separatorem pola jest znak |. W trakcie importu do programu QGIS należy zamienić miejscami X i Y, oraz ustawić projekcję - 4326.
 Plik posiada następującą strukturę: \par
 
 
@@ -234,25 +370,71 @@ kod_osm	& numer tagu wg pliku filter.txt \\
 \end{tabular} \\
 
 
-\begin{figure}[htp]
+
+\begin{figure}[h]
 \caption{Schemat przetwarzania informacji słownikowej OSM - OZK.}
-\centerline{\includegraphics[scale=0.45]{/home/mariusz/Obrazy/schematygislatex/obraz3.png}}
+\centering
+\includegraphics[width=1\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz3a.eps}
 	
 \label{}
 	
 \end{figure}
 
+
+
 W celu przypisania kodów_osm do indeksów infrastruktury można użyć pliku pliku sl_ozk_osm_indeksy_srednik_pelne_3_poziomy.csv
+Lub też użyć komendy
+\begin{lstlisting}[ language=SQL]
+select *
+from osm_poi_7_8_2017
+left join slownik_indeksy_ozk
+on osm_poi_7_8_2017.field_1::text = slownik_indeksy_ozk.osm_kod::text
+\end{lstlisting}
+lub też od razu stworzyć nową bazę powiększoną o pola słownika i poprawionymi nazwami pól
+\begin{lstlisting}[ language=SQL]
+select 
+field_2 as osm_id, 
+field_3 as lang, 
+field_4 as lat, 
+field_5 as nazwa, 
+field_6 as wheelchair, 
+field_7 as url, 
+field_8 as website, 
+field_9 as opening_hours,
+osm_poi_7_8_2017.geom,
+osm_poi_7_8_2017.id,
+osm_kod, 
+nazwa_osm,
+indeksy_ozk_aktualne_nazwa, 
+indeksy_ozk_aktualne_id_nadrzedne
+into public.osm_poi_7_8_2017_ozk
+from osm_poi_7_8_2017
+left join slownik_indeksy_ozk
+on osm_poi_7_8_2017.field_1::text = slownik_indeksy_ozk.osm_kod::text
+
+
+\end{lstlisting}
+
+W przypadku problemów z primary key w nowej bazie można usunąć kolumnę z id i na nową wygenerować primary key
+
+\begin{lstlisting}[language=SQL]
+	alter table osm_poi_7_8_2017_ozk Drop column id;
+	alter table osm_poi_7_8_2017_ozk add column id serial primary key;
+\end{lstlisting}
+
 \begin{landscape}
 	\begin{figure}[htp]
 		\caption{Schemat przetwarzania informacji o punktach.}
-		\centerline{\includegraphics[scale=0.45]{/home/mariusz/Obrazy/schematygislatex/obraz2.png}}
+		\centering
+		\includegraphics[width=1.6\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz2a.eps}
 		
 		\label{}
 		
 	\end{figure}
 \end{landscape}
 \subsection{Wyznaczanie tras - pgrouting.}
+
+NOTATKA! Twórcy pgrouging używają do konwersji danych z osm osm2pgrouting - brakuje niestety tego programu w Arch. \par
 
 Sieć drogowa wygenerowana za pomocą osm2pgsql nie pozwala na używanie rozszerzenia pgrouting. Konwersję dróg do formatu wektorowego wykonać można w programie osm2po \url{http://osm2po.de/}.\par
 Efektem działania programu jest wygenerowanie pliku z bazą danych (rozszerzenie sql- hh2po4pgr.sql):
@@ -271,19 +453,43 @@ Powstały plik można załączyć do bazy postgresql. Czynność wykonujemy kome
 psql -U postgres -d gis-osm -q -f hh2po4pgr.sql
 \end{lstlisting}
 Po załadowaniu pliku należy jeszcze stworzyć tablicę wektorów, aby móc używać danych w programie QGIS. Czynność wykonujemy w bazie postgresql.
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Tworzenie tabeli wektorów}]
 SELECT pgr_createVerticesTable('hh2po4pgr','geom_way','source','target');
 \end{lstlisting}
 W powstałej tabeli z danymi hh2po4pgr - kolumna cost - jest wyliczana jako 
 \( \displaystyle \frac{km}{\frac{km}{h}} \)
 Ostatnią czynnością porządkową jest przekształcenie układu współrzędnych z 4326 na 2180, który pozwoli na analizy odległości w metrach.
 
+\section{Projekcja w locie}
 
+
+Problem z projekcją układów współrzędnych, który pojawia się w analizach pokazuje film \url{https://www.youtube.com/watch?feature=youtu.be&v=kIID5FDi2JQ&app=desktop} \par
+Dodatkowe źródła informacji o postgis:
+\begin{itemize}
+	\item \url{http://workshops.boundlessgeo.com/postgis-intro/index.html}
+\end{itemize} \par
+Dane, w celu wykonywania obliczeń należy przekształcić do układu współrzędnych EPSG 2180. W programie QGIS można skorzystać z projekcji w locie. Dane można przekształcić w bazie Postgresql. \\
+
+\begin{table}[h]
+	\centering
+\begin{tabular}{|p{3cm}|p{3.2cm}|l|}
+
+	\hline 
+\textbf{Typ projekcji}	& \textbf{jednostka miary} & \textbf{gdzie używany}\\ 
+	\hline 
+\textbf{EPSG 3857} (WGS84)	&  metry & osm2pqsl\\ 
+	\hline 
+\textbf{EPSG 4326} (WGS84)	&  w stopniach &  osm2po (do wyznaczania tras)\\ 
+	\hline 
+\textbf{EPSG 2180 }	(ETRS89/CS92	) & metry & docelowy \\ 
+	\hline 
+\end{tabular} 
+\end{table}
 \chapter{Praca na danych Openstreetmap.}
 \section{Przetwarzanie danych powierzchniowych.}
 
 W celu wyodrębnienia pliku z informacjami o powierzchniach terenów zielonych zostało użyte następujące polecenie:
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Obrysy terenów zielonych}]
 select * 
 from planet_osm_polygon
 where (landuse IN ('park' , 'garden' ,'forest' , 'village_garden' , 'village_green') OR 
@@ -293,7 +499,7 @@ planet_osm_polygon.natural IN ( 'forest' , 'scrub', 'grassland', 'wood' ) OR bou
 
 
 Obszary wodne posiadają następujące parametry:
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Obrysy akwenów wodnych}]
 select * 
 from planet_osm_polygon
 where (landuse IN ( 'stream', 'water', 'pond', 'reservoir') OR 
@@ -305,7 +511,8 @@ planet_osm_polygon.natural IN ('water'))
 \begin{landscape}
 \begin{figure}[htp]
 	\caption{Schemat przetwarzania informacji o powierzchniach.}
-	\centerline{\includegraphics[scale=0.45]{/home/mariusz/Obrazy/schematygislatex/obraz4.png}}
+\centering
+\includegraphics[width=1.5\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz4a.eps}
 	
 \label{}
 
@@ -315,7 +522,7 @@ planet_osm_polygon.natural IN ('water'))
 \section{Przetwarzanie danych liniowych.}
 
 Sieć drogowa została wygenerowana wg następujących parametrów:
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Wybieranie sieci drogowej}]
 select * 
 from planet_osm_line
 where osm_id > 0 AND 
@@ -330,7 +537,7 @@ where osm_id  < 0 AND route  IN ( 'trolleybus', 'train','tracks' ,'track' ,'subw
 \end{lstlisting}
 
 Część informacji o rzekach znajduje się w tabeli z informacjami o liniach:
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Wybieranie terenów wodnych.}]
 select * 
 from planet_osm_line
 where (landuse IN ( 'stream' , 'water', 'pond' , 'reservoir' ) OR 
@@ -341,7 +548,8 @@ planet_osm_line.natural IN ('water'))
 \begin{landscape}
 	\begin{figure}[htp]
 		\caption{Schemat przetwarzania informacji o liniach.}
-		\centerline{\includegraphics[scale=0.45]{/home/mariusz/Obrazy/schematygislatex/obraz5.png}}		
+	\centering
+	\includegraphics[width=1.6\textwidth]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/obraz5a.eps}		
 		\label{}	
 	\end{figure}
 \end{landscape}
@@ -350,7 +558,7 @@ planet_osm_line.natural IN ('water'))
 
 Dane o przystankach znajdują się danych o POI generowanych w oparciu o program osm2poi, jednak algorytm przetwarzania danych nie gromadzi wszystkich obiektów. 
 W tym celu z bazy planet_osm_point należy wybrać dodatkowe obiekty
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption={Wybieranie przystanków autobusowych}]
 Select *
 from planet_osm_point
 where 'highway' ILIKE 'bus_stop'
@@ -358,6 +566,362 @@ where 'highway' ILIKE 'bus_stop'
 %%%%%%%%%%%%%%%%
 % PQROUTING %
 %%%%%%%%%%%%%%%%
+\paragraph{Bazy danych.}
+W bazie \textit{ozk-gis} znajdują się następujące tabele. Są one pogrupowane w trzech schematach:. 
+\begin{itemize}
+	\item bazy - dane GUS i inne źródła danych o natężeniu zjawisk
+	\item postgres - baza przejściowa
+	\item public - dane przestrzenne i słownikowe 
+\end{itemize}
+\begin{footnotesize}
+	\begin{longtable}{p{1.5cm} p{10.2cm}}
+		\hline
+		\multicolumn{2}{c}{Początek Tabeli}\\
+		
+		Schemat                        & Nazwa tabeli\\
+		\hline
+		\endfirsthead
+		
+		\hline
+		\multicolumn{2}{c}{Ciąg dalszy Tabeli}\\
+		
+		Schemat                        & Nazwa tabeli\\
+		\hline
+		\endhead
+		
+		\hline
+		\endfoot
+		
+		\hline
+		\multicolumn{2}{ c }{Koniec Tabeli}\\
+		\hline\hline
+		\endlastfoot
+		bazy     & biblioteki\_2015\_gus                                               \\
+		bazy     & dojazdy\_praca\_nsp\_2011                                           \\
+		bazy     & domy\_kultury\_2015                                                 \\
+		bazy     & kina\_2015                                                          \\
+		bazy     & licea\_o\_wskazniki\_2015                                           \\
+		bazy     & ludnosc\_wg\_lat                                                    \\
+		bazy     & muzea\_2015\_gus                                                    \\
+		bazy     & szkoly\_ibe                                                         \\
+		bazy     & teatry\_2014\_it                                                    \\
+		bazy     & wyd\_kult\_gminy                                                    \\
+		bazy     & wyd\_kult\_gminy\_1osoba                                            \\
+		bazy     & zmiany\_teryt\_gminy                                                \\
+		bazy     & zmiany\_teryt\_powiaty                                              \\
+		postgres & dochody\_gmin\_2015\_gus                                            \\
+		postgres & wydatki\_gmin\_2015\_gus                                            \\
+		public   & area\_admin\_level\_8\_osm\_11\_2016                                \\
+		public   & area\_dzialki\_cemntarze\_osm\_20\_10\_2016                         \\
+		public   & area\_koleje\_osm\_20\_10\_2016                                     \\
+		public   & area\_kultura\_osm\_20\_10\_2016                                    \\
+		public   & area\_medycyna\_osm\_20\_10\_2016                                   \\
+		public   & area\_parkingi\_komunikacja\_osm\_20\_10\_2016                      \\
+		public   & area\_parki\_osm\_20\_10\_2016                                      \\
+		public   & area\_parki\_osm\_5\_11\_2016                                       \\
+		public   & area\_przemysl\_handel\_osm\_20\_10\_2016                           \\
+		public   & area\_publiczne\_straz\_policja\_osm\_20\_10\_2016                  \\
+		public   & area\_religijne\_osm\_20\_10\_2016                                  \\
+		public   & area\_rodzaje\_powierzchni\_rolnicze\_mieszkalne\_osm\_20\_10\_2016 \\
+		public   & area\_sport\_osm\_20\_10\_2016                                      \\
+		public   & area\_szkolnictwo\_osm\_20\_10\_2016                                \\
+		public   & area\_zabudowa\_komercyjna\_20\_10\_2016                            \\
+		public   & biblioteki\_mkidn\_2014                                             \\
+		public   & biblioteki\_wroclaw\_open                                           \\
+		public   & domy\_kultury\_2014                                                 \\
+		public   & drogi\_bdoo\_2016                                                   \\
+		public   & drogi\_glowne\_osm\_15\_11\_2016\_obsolete                          \\
+		public   & drogi\_zwykle\_osm\_18\_11\_2016                                    \\
+		public   & gminy                                                               \\
+		public   & gminy\_historyczne                                                  \\
+		public   & gminy\_osm\_teryt                                                   \\
+		public   & komunikacja-lotniska                                                \\
+		public   & kopalnie\_bdoo\_06\_2016                                            \\
+		public   & krs\_2016                                                           \\
+		public   & krs\_ost                                                            \\
+		public   & layer\_styles                                                       \\
+		public   & linie\_relacje\_komunikacja\_publiczna\_osm\_5\_11\_2016            \\
+		public   & ludnosc\_NSP2011                                                    \\
+		public   & miejscowosci                                                        \\
+		public   & obreby\_ewidencyjne                                                 \\
+		public   & obszar\_natura\_2000\_bdoo\_2016                                    \\
+		public   & obwod spisowy                                                       \\
+		public   & osm\_poi\_15\_11\_2016                                              \\
+		public   & osm\_poi\_17\_12\_2016                                              \\
+		public   & osm\_poi\_custom\_acces\_15\_11\_2016                               \\
+		public   & osm\_poi\_custom\_acces\_30\_10\_2016                               \\
+		public   & osm\_poi\_przystanki\_acces\_20\_10\_2016                           \\
+		public   & osm\_poi\_przystanki\_\_bus\_20\_10\_2016                           \\
+		public   & otwartezabytki\_09\_10\_2016                                        \\
+		public   & park\_krajobrazowy\_bdoo\_2016                                      \\
+		public   & park\_narodowy\_bdoo\_2016                                          \\
+		public   & people\_km2\_NSP                                                    \\
+		public   & powiaty                                                             \\
+		public   & rejony statystyczne                                                 \\
+		public   & rezerwaty\_bdoo\_06\_2016                                           \\
+		public   & siec\_kolejowa\_bdoo\_2016                                          \\
+		public   & slownik\_indeksy\_ozk                                               \\
+		public   & slownik\_osm\_28\_11\_2016                                          \\
+		public   & slownik\_ozk\_28\_11\_2016                                          \\
+		public   & spatial\_ref\_sys                                                   \\
+		public   & teatry\_danewarszawskie                                             \\
+		public   & temp\_krs\_99                                                       \\
+		public   & wody\_ladowe\_osm\_20\_10\_2016                                     \\
+		public   & wody\_ladowe\_powierz\_5\_11\_2016                                  \\
+		public   & wojewodztwa                                             		
+		
+	\end{longtable}
+\end{footnotesize}	
+
+\begin{lstlisting}[language=SQL,caption={Nazwy tabel z bazy.}]
+select * from information_schema.tables
+where table_schema IN ('public', 'postgres','bazy') and table_type not like 'VIEW'
+order by table_schema, table_name
+\end{lstlisting}
+\begin{lstlisting}[language=SQL,caption={Liczebności obiektów w gminach ze względu na typ(funkcja grupująca).}]
+select count(ozk_indeks_id)as liczba, 
+ozk_indeks_id,count(forma_prawna_str) as liczba_obiektow_krs, 
+forma_prawna_str,slownik_ozk_28_11_2016.nazwa,gminy.jpt_nazwa_, gminy.jpt_kod_je
+from krs_2016
+left join  slownik_ozk_28_11_2016 
+on krs_2016.ozk_indeks_id = slownik_ozk_28_11_2016.id 
+inner join gminy
+on st_intersects(gminy.geom, krs_2016.geom)
+group by ozk_indeks_id, forma_prawna_str,slownik_ozk_28_11_2016.nazwa,gminy.jpt_nazwa_,gminy.jpt_kod_je
+order by gminy.jpt_kod_je,gminy.jpt_nazwa_, ozk_indeks_id,liczba, forma_prawna_str
+\end{lstlisting}
+
+\chapter{Podstawowe operacje w SQL}		
+
+\begin{lstlisting}[language=SQL, caption={Łaczenie gmin z danymi GUS.}]
+Select gminy.geom, bazy.wyd_kult_gminy.*
+from bazy.wyd_kult_gminy 
+left join gminy
+on bazy.wyd_kult_gminy.kod::integer = gminy.jpt_kod_je::integer
+/*rzutowanie typu*/
+\end{lstlisting}
+
+\begin{lstlisting}[language=SQL, caption={Operacje matematyczne.}]
+select gminy_osm_teryt.teryt, way, ("2015"::integer) - ("2005"::integer) as zmian_liczebnosc
+from ludnosc_wg_lat
+left join gminy_osm_teryt
+on  ludnosc_wg_lat.teryt = gminy_osm_teryt.teryt
+order by zmian_liczebnosc
+\end{lstlisting}
+
+\begin{lstlisting}[language=SQL, caption={Export danych do csv.}]
+COPY
+(SELECT <ZAPYTANIE>) 
+TO plik.csv CSV DELIMITER ','
+/*plik zapisuje się w katalogu tmp*/
+\end{lstlisting}
+\chapter{Portret gminy}
+
+Wyodrębnienie obiektów z gminy:
+\begin{lstlisting}[language=SQL, caption={Obiekty z gminy.}]
+Select osm.geom, osm.id, osm.nazwa, gminy.jpt_nazwa_, osm.kod_osm, osm.slownik_osm_713_nazwa_osm	
+from osm_poi_custom_acces_5_11_2016 as osm
+/*wewnętrzne złączenie z obiektami, które się przecinają */
+Inner join public.gminy as gminy on st_intersects(osm.geom, gminy.geom)
+/*wyszukanie gminy po kodzie teryt, wyodrębnienie tagu */
+where gminy.jpt_kod_je ILIKE '2805011' and osm.slownik_osm_713_nazwa_osm not ILIKE '%place%'
+group by slownik_osm_713_nazwa_osm, osm.geom, osm.id, osm.nazwa, gminy.jpt_nazwa_
+\end{lstlisting}
+
+Wyodrębnienie informacji o zagęszczeniu ludności w gminie:
+\begin{lstlisting}[language=SQL,caption={Ludność w gminie na km$^{2}$.}]
+SELECT ST_Intersection(osm.geom, gminy.geom), osm.value
+from public."ludnosc_NSP2011" as osm, public.gminy as gminy
+where st_intersects(osm.geom, gminy.geom) and gminy.jpt_kod_je ILIKE '2805022'
+group by value, osm.id, osm.geom, gminy.geom
+\end{lstlisting}
+Typy obiektów OZK:
+\begin{lstlisting}[language=SQL,caption={Typy obiketów OZK.}]
+SELECT slownik_osm_713_nazwa_osm,
+COUNT(DISTINCT osm_poi_custom_acces_5_11_2016.id) As tot
+/* wczytaj obiekty z kolumny slownik_osm_709 zlicz je wg kolumnu id(dla odrębnych wartości) i pokaż kolumnę jako tot
+*/
+FROM public.osm_poi_custom_acces_5_11_2016
+INNER JOIN public.gminy As g
+ON ST_Within(osm_poi_custom_acces_5_11_2016.geom, g.geom)
+/* zrób złaczenie przestrzenne z baza gmin (nazywaj jako g) -
+złączenie według kolumn z geometrialmi przestrzennymi
+*/
+WHERE g.jpt_kod_je = '1201011'  AND osm_poi_custom_acces_5_11_2016.slownik_osm_713_nazwa_osm NOT ILIKE '%place%'
+/* wybierz kolumnę z nazwa z gminy i znajdź tam Bolesławiec
+*/
+GROUP BY public.osm_poi_custom_acces_5_11_2016.slownik_osm_713_nazwa_osm
+/* grupuj wg kolumny wybranej na samym początku po select
+*/
+ORDER BY tot DESC;
+\end{lstlisting}
+Obiekty w buforze 1 km od punktu
+\begin{lstlisting}[language=SQL,caption={Obieky w okolicy 1km od obiektu z osm}]
+SELECT ROW_NUMBER() OVER (
+PARTITION BY loc.osm_id
+ORDER BY st_distance(r.geom, loc.geom), r.nazwa) As row_num,	
+loc.nazwa, loc.id, loc.slownik_osm_713_nazwa_osm, 
+loc.geom, loc.wheelchair, loc.url, loc.weebsite, loc.opening_hours,
+st_distance(r.geom, loc.geom) as dist_m
+FROM osm_poi_custom_acces_5_11_2016 as loc
+LEFT JOIN osm_poi_przystanki_acces_20_10_2016 as r 
+ON st_dwithin(r.geom, loc.geom, 1000)
+/* buffor 1000m*/
+WHERE loc.slownik_osm_713_nazwa_osm IS NOT NULL AND loc.nazwa IS NOT NULL AND r.osm_id ILIKE '%N48267476%' AND loc.slownik_osm_713_nazwa_osm NOT ilike '%place%'
+\* N48267476 (przykładowy kod obiektu) wyznaczany wg kodu obiektu z bazy osm z programu osm2poi
+GROUP BY r.geom, loc.geom, loc.nazwa, r.nazwa, loc.id, loc.slownik_osm_713_nazwa_osm, loc.wheelchair, loc.url, loc.weebsite, loc.opening_hours
+ORDER BY dist_m, r.nazwa, row_num
+\end{lstlisting}
+Typy obiektów osm - zliczenie
+\begin{lstlisting}[language=SQL,caption={Typy obiektów osm - zliczenie}]
+SELECT 
+slownik_osm_713_nazwa_osm,
+COUNT(DISTINCT osm_poi_custom_acces_5_11_2016.id) As tot
+/* wczytaj obiekty z kolumny slownik_osm_709 zlicz je wg kolumnu id(dla odrębnych wartości) i pokaż kolumnę jako tot
+*/
+FROM 
+public.osm_poi_custom_acces_5_11_2016
+INNER JOIN public.gminy As g
+ON ST_Within(osm_poi_custom_acces_5_11_2016.geom, g.geom)
+/* zrób złaczenie przestrzenne z baza gmin (nazywaj jako g) - złączenie według kolumn z geometrialmi przestrzennymi
+*/
+WHERE g.jpt_kod_je = '1201011'  AND osm_poi_custom_acces_5_11_2016.slownik_osm_713_nazwa_osm NOT ILIKE '%place%'
+/* wybierz kolumnę z nazwa z gminy i znajdź tam Bolesławiec
+*/
+GROUP BY public.osm_poi_custom_acces_5_11_2016.slownik_osm_713_nazwa_osm
+/* grupuj wg kolumny wybranej na samym początku po select
+*/
+ORDER BY tot DESC;
+\end{lstlisting}
+Tworzenie buffora.
+\begin{lstlisting}[language=SQL,caption={Buffor 1km}]
+select id, nazwa, 
+st_buffer(geom,1000) as buffer_1000
+from osm_poi_custom_acces_5_11_2016 as osm
+/*nazwa obiektu z bazy osm - po kodzie id*/
+where osm.id = 29635
+\end{lstlisting}
+\begin{lstlisting}[language=SQL,caption={Obiekty wokół 1km od koordynatów geograficznych}]
+select *
+from krs
+Where st_dwithin(geom,
+/* przekształć układ z 4326 */
+ST_Transform(
+/* ustaw układ na 2180 */
+ST_SetSRID(ST_Point(17.031924, 51.109566 ), 4326), 2180), 1000)
+\end{lstlisting}
+
+Możliwe jest także wyliczanie długości dróg w gminie ( czy też z polygonów). W tym celu należy znaleźć odpowiednie id polygonu i następnie odpytać bazę danych osm.
+\begin{lstlisting}[language=SQL,caption={Znalezienie id polygonu}]
+SELECT osm_id FROM planet_osm_polygon
+WHERE boundary='administrative' AND admin_level='7' AND name='Warszawa';
+\end{lstlisting}
+Krok kolejny to znalezienie długości dróg pierwszego rzędu (autostrad i dróg ekspresowych)
+\begin{lstlisting}[language=SQL,caption={Długość dróg w polygonie według osm_roads}]
+SELECT
+round(SUM(
+ST_Length(ST_Transform(
+ST_Intersection(way, (SELECT way FROM planet_osm_polygon WHERE osm_id=-2907540))
+,4326)::geography)
+)) AS "distance (meters)", highway AS "highway type"
+FROM planet_osm_roads
+WHERE highway IS NOT NULL
+AND ST_Intersects(way, (SELECT way FROM planet_osm_polygon WHERE osm_id=-2907540))
+GROUP BY highway
+ORDER BY "distance (meters)" DESC
+LIMIT 10;
+\end{lstlisting}
+Następnie należy wyliczyć pozostałe drogi z osm_line
+\begin{lstlisting}[language=SQL,caption={Długość dróg w polygonie według osm_lines}]
+SELECT
+round(SUM(
+ST_Length(ST_Transform(
+ST_Intersection(way, (SELECT way FROM planet_osm_polygon WHERE osm_id=-2907540))
+,4326)::geography)
+)) AS "distance (meters)", highway AS "highway type"
+FROM planet_osm_line
+WHERE highway IS NOT NULL
+AND ST_Intersects(way, (SELECT way FROM planet_osm_polygon WHERE osm_id=-2907540))
+GROUP BY highway
+ORDER BY "distance (meters)" DESC
+LIMIT 10;
+\end{lstlisting}
+
+\chapter{Izochron}
+
+
+
+\begin{lstlisting}[language=SQL,caption={Tworzenie izochronu }]
+
+CREATE TABLE hh_2po_4pgr_node_59980_1_km AS
+SELECT * FROM hh_2po_4pgr_nodes
+JOIN
+(SELECT * FROM pgr_drivingDistance('
+SELECT id AS id,
+source::int4 AS source,
+target::int4 AS target,
+-- koszty podróży z kolmny km
+km::float8 AS cost
+FROM hh_2po_4pgr',
+-- id węzła od którego wyliczany jest isochron
+59980,
+-- odległość 
+1,
+false,
+false)) AS hh_2po_4pgr_nodes_cost
+ON
+hh_2po_4pgr_nodes.id = hh_2po_4pgr_nodes_cost.id1
+;
+\end{lstlisting}
+
+\begin{lstlisting}[language=SQL,caption={Tworzenie izochronu 2}]
+Drop table hh_2po_4pgr_node_59980_1_ok_km;
+-- tworzenie isochronu
+CREATE TABLE hh_2po_4pgr_node_59980_1_ok_km AS
+SELECT * FROM hh_2po_4pgr_nodes
+JOIN
+(SELECT * FROM pgr_drivingDistance('
+SELECT id AS id,
+source::int4 AS source,
+target::int4 AS target,
+-- koszty podróży z kolmny km
+km::float8 AS cost
+FROM hh_2po_4pgr',
+-- id węzła od którego wyliczany jest isochron
+393690,
+-- odległość 
+1,
+false,
+false)) AS hh_2po_4pgr_nodes_cost
+ON
+hh_2po_4pgr_nodes.id = hh_2po_4pgr_nodes_cost.id1
+;
+\end{lstlisting}
+\begin{lstlisting}[language=SQL,caption={Otoczka wypukła}]
+
+SELECT 
+st_convexhull(ST_Collect(geom_way))
+FROM hh_2po_4pgr_node_59980_1_ok_km;
+\end{lstlisting}
+
+\begin{landscape}
+	\begin{figure}[htp]
+		\caption{Schemat tworzenie izochronu.}
+		\centerline{\includegraphics[width=26.5cm]{/Users/mariusz/DokumentyLatex/obrazylatex/schematygislatex/isochrony.eps}}
+		\label{}
+		
+	\end{figure}
+\end{landscape}
+
+\chapter{Podstawowe komendy postgis}
+
+\begin{itemize}
+	\item \textbf{st_buffer}(<geometrie - projekcja 2180>,<odległość w metrach>) - tworzenie buffora;
+	
+	\item\textbf{st_intersects}(<geometrie danych A - projekcja 2180>,<geometrie danych B - projekcja 2180>) - powierzchnie przecinające 
+\end{itemize}
+
+
 \chapter{Rozwiązania częstych problemów składni SQL.}
 \section{Bazy oparte o kod systemu TERYT.}
 \subsection{\textit{Leading zero.}}
@@ -405,14 +969,55 @@ from planet_osm_polygon
 where  admin_level = '7' and  (tags->'teryt:terc' IS not null)
 \end{lstlisting}
 
+Wygenerowanie mapy powiatów to zmiana admin_level = '6'
+
+\subsection{Dzielnice Warszawy.}
+Wydorębnienie dzielnic Warszawy polega na wyciągnięciu rekordów admin_level 9 i obszaru z terytami dla woj. mazowieckiego i gminy Warszawa
+\begin{lstlisting} [language=SQL]
+	select *
+	from planet_osm_polygon
+	where  admin_level = '9'  and (tags->'teryt:terc' ILIKE '%1465%')
+\end{lstlisting}
+
+\subsection{Edycja plików DBF dla QGIS}
+
+Pliki shp składają się z pięciu elementów, jednym są dane zawarte w pliku dbf, w którym są zapisane wartości dla atrybutów. Plik można otworzyć w arkuszu kalkulacyjnym. Jednak, aby zachować strukturę plików, należy zapisując pamiętać o dokładnie takiej samej kolejności w pliku. 
+
+\subsection{Gminy wg zaborów}
+Stworzenie aktualnej bazy gmin wg zaborów wymaga wykorzystania pliku z danymi historycznymi i przerobienie go do postaci, w której w jednej kolumnie będą dane o historii. 
+\begin{lstlisting} [language=SQL]
+Select id, geom, jpt_nazwa_, jpt_kod_je,
+case when ziemie_odzyskane = 'T' then 'ziemie odzyskane'
+when zabor_austriacki = 'T' then 'zabor austriacki'
+when zabor_pruski = 'T' then 'zabor pruski'
+when zabor_rosyjski = 'T' then 'zabor rosyjski'
+end as  zabor_historyczny
+into public.gminy_historyczne_2017
+from postgres.gminy_historyczne_2017
+\end{lstlisting}
 \section{Pozostałe dane.}
 \subsection{Tagi przechowywane jako hstore.}
 
-Przekształć hstore w kolumny i dodaj do nowej tabeli:
+Przekształć hstore w kolumny i dodaj do nowej tabeli: (DO POPRAWKI!!! - hstore w nowych wersjach postgresa tworzy tylko kolumny - key - value.)
 \begin{lstlisting}[ language=SQL]
 select *, (EACH(tags::hstore) ).*
 into gminy_osm_hstore
 from gminy_osm
+\end{lstlisting}
+Alternatywnie należy stworzyć nową bazę danych z komendy wyżej i wybrać tylko
+\begin{lstlisting}[ language=SQL]
+select *
+from gminy_osm_hstore
+where gminy_osm_hstore.key = 'teryt:terc'
+\end{lstlisting}
+tworząc kolejną bazę danych.\\
+
+ W nowej wersji czynność należy zrobić w dwóch krokach. Po popierwsze należy z bazy planet_osm_polygon wybrać gminy (tak jak jest to przedstawione wcześniej) i wrzucić to do nowej tabeli gminy. Następnie należy stworzyć plik gmin, geometrii oraz nazw i terytów wyodrębnionych z kolumny tags (hstore).
+ \begin{lstlisting}[ language=SQL]
+ SELECT osm_id, name, way, h->'teryt:terc' AS teryt
+ into gminy_osm_2018
+ FROM  (SELECT osm_id,name, way, tags AS h FROM gminy) t;
+ 
 \end{lstlisting}
 \subsection{Rzutowanie typu.}
 Postgres "nie lubi" nazw kolumn, które są całkowicie liczbowe. Jednak można zmusić system do wykonywania operacji. Przykład na danych GUS:
@@ -423,37 +1028,7 @@ from ludnosc_wg_lat
 order by zmian_liczebnosc
 \end{lstlisting}
 
-\chapter{Wizualizacja danych w ggplot2.}
 
-Do wizualizacji danych został wykorzystany pakiet ggplot z pakietu R. Podstawowe operacje "czyszczące" i porządkujące dane zostały wykonane w arkuszu kalkulacyjnym, zapisane w formacie csv i zaimportowane do programu RStudio.
-\section{Wykres słupkowy - porównanie danych.}
-\begin{itemize}
-	\item Rysowanie wykresu w oparciu o przekształcenie danych krótkich "short form" w długie "long form".
-	\item Użycie danych surowych <<stat="identity">>
-	\item Obrót wykresu.
-\end{itemize}
-
-\begin{lstlisting}[ language=R]
-library(reshape)    
-library(ggplot2)
-dataframe <- melt(krs_osm )
-dataframe  <- dataframe [complete.cases(krs_osm ),]
-head(dataframe)
-ggplot(data = dataframe , aes(x=reorder(Nazwa_indeksu,value), y = value, fill = variable), summarise ) + geom_bar(stat="identity", width = 0.5) + 
-labs (y="Liczba obiektow", x="Nazwa indeksu infrastruktury", size =2, fill='Zrodlo danych' )  +
-geom_text(aes(label=value), position=position_dodge(width= 0.1 ),hjust = - 0.1, vjust= 0.4,size = 3, color = "black"  ) + expand_limits(y=c(0,77000))+
-coord_flip()
-\end{lstlisting}
-
-\section{Wykres skrzypcowy i pudełkowy.}
-
-\begin{lstlisting}[ language=R]
-library(ggplot2)
-ggplot(wydatki_osoba_hist, aes(x=typ_historyczny, y= wydatki)) +
-geom_violin(aes(fill=typ_historyczny), trim=F) + geom_boxplot(width=.2) + xlab("Typ historyczny") + ylab("Wydatki na osobe") +
-geom_text(aes(label=gmina),color="blue3", size=3) +
-geom_rug(sides = 'l')
-\end{lstlisting}
 
 \appendix
 \chapter{default.style}
@@ -595,10 +1170,10 @@ geom_rug(sides = 'l')
 	node,way   ref          text         linear
 	node,way   religion     text         linear
 	node,way   route        text         linear
-	way        route_name   text	     linear
-	way	   network      text         linear
-	way        to		text	     linear
-	way        from		text	     linear
+	way        route_name   text	     linear #dodane(?)
+	way	   network      text         linear dodane
+	way        to		text	     linear dodane
+	way        from		text	     linear dodane
 	node,way   service      text         linear
 	node,way   shop         text         polygon
 	node,way   sport        text         polygon
@@ -613,16 +1188,18 @@ geom_rug(sides = 'l')
 	node,way   wetland      text         polygon
 	node,way   width        text         linear
 	node,way   wood         text         linear
-	node,way   opening_hours text        linear
-	node,way   website	text	     linear
-	node,way   url		text	     linear
-	node,way   wikipedia    text	     linear
-	node,way   email        text	     linear
-	node,way   phone        text	     linear
-	node,way   wheelchair   text	     linear
-	node,way   tactile_paving text       linear			
+	node,way   opening_hours text        linear # dodane
+	node,way   website	text	     linear # dodane
+	node,way   url		text	     linear # dodane
+	node,way   wikipedia    text	     linear # dodane
+	node,way   email        text	     linear # dodane
+	node,way   phone        text	     linear # dodane
+	node,way   wheelchair   text	     linear # dodane
+	node,way   tactile_paving text       linear	# dodane		
 	node,way   z_order      int4         linear # This is calculated during import
 	way        way_area     real         linear # This is calculated during import
+	node,way    osm_version    integer           linear # dodane dla extended attributes
+	node,way    osm_timestamp    timestamptz(0)    linear # dodane dla extended attributes
 	
 	# Area tags
 	# We don't make columns for these tags, but objects with them are areas.
@@ -2168,6 +2745,10 @@ emergency\_ambulance\_station      & zdrowia                                    
 \end{longtable}
 \end{footnotesize}
 
+
+\nocite{*}
+
+\bibliography{Bibliografy}
 
 
 
