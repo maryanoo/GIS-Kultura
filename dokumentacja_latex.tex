@@ -4,7 +4,7 @@
 \usepackage{polyglossia}
 \setdefaultlanguage{polish}
 \defaultfontfeatures{Ligatures=TeX}
-%\setmainfont{Iwona}
+\setmainfont{Iwona}
 %\setmainfont{TeX Gyre Heros}
 
 \usepackage{graphicx}
@@ -14,11 +14,11 @@
 \usepackage{array}
 \usepackage{chngpage}
 \usepackage{subcaption} 
+\captionsetup{compatibility=false}
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage{epstopdf}
 \usepackage{longtable}
-\usepackage{tikz}
 \usepackage{pdflscape}
 \usepackage{xcolor}
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
@@ -37,16 +37,7 @@
 		Title={Dokumentacja Latex},
 		Author={Mariusz Piotrowski}
 }}
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% First page of book which contains 'stuff' like: %
-%  - Book title, subtitle                         %
-%  - Book author name                             %
+\usepackage{tcolorbox}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Book's title and subtitle
@@ -59,10 +50,6 @@
 
 %\frontmatter
 \maketitle
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Add a dedication paragraph to dedicate your book to someone %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -85,6 +72,18 @@ Podstawą do budowy dokumentu był szablon Easy Book.\footnote{\url{https://www.
 \begin{verbatim}
 \,
 \end{verbatim}
+
+\paragraph{Tekst w ramce}
+\begin{verbatim}
+\usepackage{tcolorbox}
+\begin{tcolorbox}
+
+\end{tcolorbox}
+\end{verbatim}
+\begin{tcolorbox}
+	Tekst na szarym tle.
+\end{tcolorbox}
+
 \chapter{Szablon dokumentu. Preambuła}
 
 Założeniem było stworzenie dokumentu, który:
@@ -127,6 +126,7 @@ W definicji dokumentu zostały użyte więc następujące pakiety dodatkowe:
 \usepackage{array}
 \usepackage{chngpage}
 \usepackage{subcaption} 
+\captionsetup{compatibility=false}
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage{epstopdf}
@@ -276,7 +276,7 @@ Duże obrazy na całą stronę można dodawać w pozycji poziomej, aby uzyskać 
 	\end{figure} \par
 \end{landscape}
 \end{verbatim}
-W programie TexStudio podaczas kompikowania dokumentu, w którym znajduje się obraz eps pojawia się komunikat błędu. Należy wówczas zmienić w opcjach (jednorazowo) domyślny kompilator.
+W programie TexStudio podaczas kompikowania dokumentu (pdfLatex), w którym znajduje się obraz eps pojawia się komunikat błędu. Należy wówczas zmienić w opcjach (jednorazowo) domyślny kompilator.
 
 \chapter{Wstawianie tabel}
 
@@ -284,6 +284,9 @@ W celu wrzucenia wielostronicowej tabeli, z mniejszą czcionką należy zastosow
 \begin{verbatim}
 \begin{footnotesize}
 \begin{longtable}{p{1.5cm} p{10.2cm}}
+\caption{}
+\label{}
+\endfirsthead
 \hline
 \multicolumn{2}{c}{Początek Tabeli}\\
 Schemat                        & Nazwa tabeli\\
