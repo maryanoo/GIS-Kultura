@@ -1,0 +1,9 @@
+rm poland-latest.osm.pbf
+wget http://download.geofabrik.de/europe/poland-latest.osm.pbf
+sudo -u postgres -i
+psql 
+DROP DATABASE gis-osm
+createdb gis-osm
+psql -d gis-osm -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore; CREATE EXTENSION pgrouting;'
+osm2pgsql -s -U postgres --hstore -d gis-osm --style /home/mariusz/default.style --multi-geometry --extra-attributes poland-latest.osm.pbf
+
