@@ -1,10 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% LaTeX book template                           %%
-%% Author:  Amber Jain (http://amberj.devio.us/) %%
-%% License: ISC license                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % !TeX program = lualatex
-\documentclass[a4paper,12pt,oneside,final]{book}
+\documentclass[a4paper,12pt,oneside,final]{mwrep}
 \usepackage{polyglossia}
 \setdefaultlanguage{polish}
 \setmainfont{Iwona}
@@ -12,18 +9,22 @@
 % Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
-%\usepackage{polski}
 \usepackage{booktabs}
+\usepackage{tcolorbox}
 \usepackage{lscape}
 \usepackage{array}
 \usepackage{chngpage}
 \usepackage{subcaption} 
+\captionsetup{compatibility=false}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 \usepackage{listings}
 \usepackage{underscore}
 \usepackage{epstopdf}
 \usepackage{longtable}
 \usepackage[toc,page]{appendix}
-\usepackage{hyperref}
 \usepackage{pdflscape}
 \usepackage{xcolor}
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
@@ -67,7 +68,6 @@
 	pages = {206},
 	publisher = {Chapman {\&} Hall/CRC},
 	title = {{Displaying Time Series, Spatial, and Space-Time Data with R}},
-	url = {http://books.google.com/books?hl=en{\&}lr={\&}id=Q5A-AwAAQBAJ{\&}oi=fnd{\&}pg=PP1{\&}dq={\%}22Version+of+Figures+in{\%}22+{\%}22Figure+3.11+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.+.{\%}22+{\&}ots=zmsKtV{\_}cg1{\&}sig=CweYgohoKFP-jdHF},
 	year = {2014}
 }
 @book{Bivand2013,
@@ -106,7 +106,6 @@ year = {2015}
 	mendeley-groups = {Metodologia,Narzedzia R},
 	publisher = {Fundacja Naukowa SmarterPoland.pl},
 	title = {{Odkrywac! Ujawniac! Objasniac! Zbior esejow o sztuce prezentowania danych}},
-	url = {https://books.google.pl/books?id=wnO-oQEACAAJ},
 	year = {2016}
 }
  @Book{,
@@ -128,15 +127,33 @@ year = {2015}
 	title={Discovering Statistics Using R},
 	author={Field, Andrew and Miles, Jeremy and Field, Zoe},
 	isbn={9781446258460},
-	url={https://books.google.pl/books?id=wd2K2zC3swIC},
 	year={2012},
 	publisher={SAGE Publications}
+}
+@article{sorensen2002use,
+	title={The use and misuse of the coefficient of variation in organizational demography research},
+	author={S{\o}rensen, Jesper B},
+	journal={Sociological methods \& research},
+	volume={30},
+	number={4},
+	pages={475--491},
+	year={2002},
+	publisher={Sage Publications Thousand Oaks}
 }
 
 \end{filecontents*}
 \usepackage{marginnote}
 \usepackage[numbers]{natbib}
-\bibliographystyle{plplain}
+\bibliographystyle{plainnat}
+\usepackage[
+		pdfencoding=auto,% or unicode
+		psdextra,
+		]{hyperref}
+\hypersetup{pdfinfo={
+		Title={Analizy statystyczne i przestrzenne w R},
+		Author={Mariusz Piotrowski},
+		Subject={Skrypt przybliżający zagadnienia analiz statystycznych i korzystania z programu R do analiz danych ilościowych i danych przestrzennych.}
+}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 'dedication' environment: To add a dedication paragraph at the start of book %
 % Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
@@ -176,14 +193,14 @@ year = {2015}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Book's title and subtitle
-\title{\Huge \textbf{Analizy przestrzenne w R}  \\ \huge Podstawy analiz i wizualizacji danych. }
+\title{\Huge \textbf{Analizy statystyczne i przestrzenne w R}  \\ \huge Podstawy analiz i wizualizacji danych. }
 % Author
 \author{\textsc{dr Mariusz Piotrowski}}
 \date{\today\\wersja robocza}
 
 \begin{document}
 
-\frontmatter
+%\frontmatter
 \maketitle
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -197,9 +214,6 @@ year = {2015}
 \tableofcontents
 \lstlistoflistings
 
-\mainmatter
-
-%%%%%%%%%%%
 % Preface %
 %%%%%%%%%%%
 \chapter{Informacje wstępne.}
@@ -290,10 +304,41 @@ mtcars$mpgtest <- mtcars$mpg * 2
 \end{lstlisting}
 W efekcie powstanie nowa kolumna mpgtest,której wartości są pomnożonymi razy 2 wartościami z kolumny mpg.
 
+\paragraph{Praca na danych sondażowych - case studies Uczestnictwo w kulturze - Katowice}
+
+Zbudowanie prostej tabel krzyżowej, zgrupowania zmiennych wg jakichś cech - wymaga odwołania się do indeksu. \par
+Z ramki danych (survey-data) chcę zaprezentować dane o wydarzeniu i poziomie wykształcenia uczestników. [,c(...)] oznacza - wybierz WSZYSTKIE wiersze.
+\begin{lstlisting}[language=R,caption={Identyfikacja numeru i tworzenie ramki danych z dwóch zmiennych. }]
+which(colnames(survey.data)=="event")
+which(colnames(survey.data)=="education_level")
+x <- survey.data[,c(1,13)]
+\end{lstlisting}
+
+Do analizy danych sondażowych, czyli wszędzie tam, gdzie głównie analizuje się dane mierzone na skalach jakościowych można użyć pakiet \,<<questionr>>. Przydatne są szczególnie funkcje do analiz procentów i pokazywania procentów w tabelach krzyżowych.
+\begin{lstlisting}[language=R,caption={Liczenie procentów ze zmiennej. }]
+library(questionr)
+freq(survey.data$education_level)
+\end{lstlisting}
+\begin{lstlisting}[language=R,caption={Liczenie procentów w tabeli krzyżowej. }]
+library(questionr)
+x <- survey.data[,c(1,13)]
+#zrobienie ramki danych z dwoma zmiennymi
+y <- table(x)
+#zrobienie tabeli
+rprop(y)
+#tabela krzyżowa z procentami dla wierszy
+cprop(y)
+#tabelea krzyżowa z procentami dla kolumn
+\end{lstlisting}
+
+
 \chapter{Podstawowe operacje statystyczne.}
 
-\paragraph{Statystyki opisowe} - W przypadku zmienny ilościowych [numeric] podstawowe statystyki można uzyskać funkcją - \textit{summary()}.\par
- Odpowiednikiem jest tzw. pięć liczb Turkeya - \textit{fivenum()}:
+\section{Opis jednej zmiennej}
+
+Zebrane dane z badań porządkowane są w szeregi statystyczne, dzięki czemu możliwe jest określenie rozkładu wartości, które przyjmuje każda z badanych zmiennych. W tym celu stosuje się różnego rodzaju miary. W celu określenia tego co jest typowe dla zmiennej stosuje się miary skupienia, a w celu ustania wewnętrznej różnorodności zmiennej stosuje się miary rozproszenia.
+\paragraph{Statystyki opisowe w R} - W przypadku zmienny ilościowych [numeric] podstawowe statystyki można uzyskać funkcją - \textit{summary()}.\par
+Odpowiednikiem jest tzw. pięć liczb Turkeya - \textit{fivenum()}:
 \begin{itemize}
 	\item wartość minimalna
 	\item granica pierwszego kwartyla
@@ -307,7 +352,239 @@ W przypadku zmiennych jakościowych funkcja \textit{summary()} pokazuje tablicę
 summary(mtcars$mpg)
 \end{lstlisting}
 
-\paragraph{Korelacja} - Tworzenie macierzy korelacji odbywa się następująco:
+\paragraph[Miary skupienia]{Miary tendencji centralnej}
+
+
+
+\subparagraph{Wielkości średnie}
+
+Najpopularniejszą miarą skupienia jest średnia arytmetyczna. Mierzy się go jako iloraz sumy wartości pomiarów przez ich liczbę \[  \bar{X} = \frac{\sum x_{i}}{N}  \]. \par
+W przypadku obliczania \textbf{średniej ważonej} każdy pomiar jest mnożony przez wagę, następnie wynik dzielony jest przez liczbę pomiarów. W R średnie można obliczyć następująco:
+\begin{lstlisting}[language=R,caption={Obiczanie średnich}]
+mean(dane$zmienna)
+weighted.mean(dane$zmienna, dane$wagi)
+1/mean(1/a) #compute the harmonic mean
+\end{lstlisting}
+
+W badaniach społecznych może pojawić się potrzeba użycia innego rodzaju średnich.Warto zwrócić uwagę na: \begin{itemize}
+	\item średnią odciętą (trymowaną) wyliczana jest średnia odejmując 5\% dolnych i 5\% górnych wyników
+	\item  średnia geometryczna (Wskaźniki w HDI są tak obliczane).  Stosowana do określenia przeciętnej wielkości jakiejś zmiany zachodzącej w badanym środowisku. Ale zmiana ma charakter względnie regularny. Np. jakieś zwiększenie cechy rośnie w postępie geometrycznym \[ G = \sqrt[n]{x_{1} x_{2}... x_{n}}\] i wszystkie $ x_{i} >0 $
+	\item średnia harmoniczna (wykorzystywanej przy obliczeniu średniej liczby mieszkańców na $km^{2})$ i \[ H =  \]
+	\item średnia krocząca (średnia ruchoma)
+	
+	
+\end{itemize} .
+
+\subparagraph{Wartość środkowa}
+
+Obliczanie mediany w R 
+
+\begin{lstlisting}[language=R,caption={Obiczanie wartości środkowej}]
+median(dane$zmienna)
+\end{lstlisting}
+
+\paragraph{Miary rozproszenia - dyspersji}
+
+\subparagraph{Odchylenie średnie, przeciętne}
+Miara praktycznie już nie stosowana w statystyce. 
+Odchylenie przeciętne to średnia arytmetyczna wartości bezwzględnych (absolutnych, czyi pomijając znak przed wartością) wszystkich odchyleń poszczególnych  wartości pomiarowych od ich  średniej arytmetycznej. Uproszczony wzór to \[  d = \frac{\sum |x_{i} - \bar{x}|}{n} \] \par
+
+W R do obliczenia można użyć formuły.
+\begin{lstlisting}[language=R,caption={Obliczanie odchylenia przeciętnego }]
+mean(abs(dane$zmienna-mean(dane$zmienna)))
+\end{lstlisting}
+
+\subparagraph{Wariancja i odchylenie standardowe}
+
+Wariancja jest obliczania podobnie jak odchylenie przeciętne, jednak zamiast wartości bezwzględnej, natomiast mianownik to liczba obserwacji pomniejszony o 1. (w przypadku obliczeń dla próby) Wzór to
+\[  s^{2} = \frac{\sum (x_{i} - \bar{x})^{2}}{n-1} \] \par
+Odchylenie standardowe jest pierwiastkiem kwadratowym z wariancji. Wzór to 
+\[  s = \sqrt{\frac{\sum (x_{i} - \bar{x})^{2}}{n-1}} \] \par
+W R oblicza się ją jako 
+\begin{lstlisting}[language=R,caption={obliczanie wariancji i odchylenia standardowego  }]
+var(dane$zmienna)
+sd(dane$zmienna)
+\end{lstlisting}
+
+Wadą odchylenia standardowego jest silna podatność na wartości skrajne danej zmiennej.
+
+\subparagraph{Współczynnik zmienności - Coefficent of variation }
+
+Budzącym kontrowersje parametrem określającym rozproszenie jest współczynnik zmienności Pearsona. Zaletą jego jest łatwe obliczenie, oraz zastosowanie do porównań pomiędzy grupami. Do wyliczenia stosuje się iloraz odchylenia standardowego i średniej arytmetycznej  \[  V = \frac{s}{\bar{x}}  \] i  $ \bar{x} \neg 0  $. Wartość współczynnika można podać w procentach
+\[  V_{zmiennej} = \frac{s}{\bar{x}} *100  \]  = \% . O kontrowersjach w użyciu tego współczynnika można poczytać u \citeauthor{sorensen2002use}.\footnote{\url{https://web.stanford.edu/~sorensen/nomorecv\%20revision\%20final.pdf}}. Aby obliczyć ten współczynnik w R należy zastosować taką formułę:
+\begin{lstlisting}[language=R,caption={Obliczanie współczynnika zmienności}]
+sd(Data$Variable, na.rm=TRUE)/
+	mean(Data$Variable, na.rm=TRUE)*100
+\end{lstlisting}
+
+
+\section{Opis związku dwóch zmiennych. Zmienne nominalne.}
+
+Jakość ustalonej skali rozstrzyga o tym, jakie operacje badawcze moją być wykonane. Jeśli obie zmienne wyrażone są na skalach ilościowych, lub porządkowych wówczas mowa o korelacji, jeśli wyrażone są na skalach nominalnych (jakościowych) mowa o zbieżności, czy asocjacji.\par
+
+Co ważne - wielkość związku zmiennych w próbie, jedynie określa nam, czy istnieje, czy też nie związek między zmiennymi, nie mówi nam czy przekłada się on na populacje, nie przekłada się on na statystyczną istotność. Test $\chi^2$ określa właśnie to, czy można przenieść wnioski na populację - czy związek jest statystycznie istotny, czy też nie.
+
+\begin{tabular}{|p{2,2cm}|p{3cm}|p{3cm}|p{4cm}|}
+	\hline 
+
+	 & ilościowa & porządkowa & nominalna  \\ 
+	\hline 
+	 ilościowa & Pearsona współczynnik korelacji (r) &  &  \\ 
+	\hline 
+	 porządkowa &  & \begin{itemize}
+	 	\item Spearmana współczynnik korelacji rangowej/pozycyjnej (R)
+	 	\item $\tau$ (tau) Kendalla
+	 	\item Kendalla współczynnik zgodności
+	 	\item $\gamma$ (gamma Goodmana i Kruskala)
+	 \end{itemize} &  \\ 
+	\hline 
+	 nominalna & \begin{itemize}
+	 	\item stosunek korelacyjny $\eta$ (eta) 
+	 	\item współczynnik korelacji dwuseryjnej punktowej
+	 \end{itemize} &  & \begin{itemize}
+	 	\item współczynnik zbieżności/kontyngencji (C),
+	 	\item współczynnik asocjacji (Q) Yula, 
+	 	\item współczynnik $\phi$ (phi) (dla cech zdychotomizowanych)
+	 	\item V Cramera
+	 	\item $\lambda$ (lambda) Goodmana i Kruskala
+	 \end{itemize} \\ 
+	\hline 
+ 
+\end{tabular} 
+
+\subsection{Współczynnik asocjacji Q Yule`a}
+
+Najprostszym sposobem do obliczeń asocjacji jest współczynnik asocjacji Q - Yule`a (Yule`a - Kendalla), który można stosować wyłącznie do tabel dwudzielnych (2x2), ale w takiej tablicy nie powinny być wartości 0, gdyż współczynnik Q będzie 1, lub -1. \par
+Do obliczeń stosuje się wzór:
+\[ Q = \frac{ad - bc}{ad - bc} \]
+
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	& Wyrzucanie śmieci  & Śmiecenie  & Suma  \\ 
+	\hline 
+	Kobiety	& 18 (a) & 7 (b) & 25 (a+b) \\ 
+	\hline 
+	Mężczyźni	& 42 (c) & 33 (d)  & 75 (c+d)  \\ 
+	\hline 
+	Suma	& 60 (a+c)  & 40 (b+d) & 100 (N) \\ 
+	\hline 
+\end{tabular} \par
+
+
+W efekcie dla tej tabeli dwudzielnej wynik wynosi $ Q = 0.33 $, czyli jest to związek słaby. Q może przyjmować wartości od -1 do +1. Dodatnie wartości świadczą, że I wariant cechy x współwystępuje z I cechą y, a II wariant cechy x z II wariantem cechy y. Ujemne wartości oznaczają, że I wariant cechy x kojarzy się z II wariantem cechy y, zaś II wariant cechy x, z I wariantem cechy y.	`
+
+\subsection{ $\chi^2$ (Chi kwadrat) - test niezależności zmiennych}
+Dla zmiennych jakościowych -kategorialnych lub nominalnych możliwe jest określenie różnicy w rozkładzie zmiennej w badanej próbie. Odbywa się to przez przyjęcie, lub odrzucenie hipotezy zerowej $H_{0} $ - w brzmieniu - nie ma statystycznej różnicy w rozkładzie cech zmiennej. 
+$\chi^2$ pozwala na określenie, czy dane w próbie (rozkład według kategorii zmiennej nominalnej) wyniki rozłożyły się wedle proporcji, które są przypadkowe, czy też nie.\par 
+Dla małych prób, oprócz wykonania testu na nieciągłość przy obliczaniu $\chi^2$ , należy wykonać test Fishera aby uniknąć błędu z odrzuceniem hipotezy. 
+Test dokładny Fishera przeprowadza się dla bardzo małych prób (np. gdy jedna z liczebności w komórek jest < (mniejsza niż 5) i tablic 2x2. Określa on dokładne prawdopodobieństwo, a nie przybliżone. Test $\chi^2$   może podać prawdopodobieństwo pozwalające na odrzucenie hipotezy zerowej, zaś Test Fishera sprzyja nieodrzuceniu hipotezy zerowej. 
+
+\par 
+
+Przykładem może być rozkład cechy wyrzucanie śmieci a płeć. Dane prezentuje tabela
+
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	& Wyrzucanie śmieci  & Śmiecenie  & Suma  \\ 
+	\hline 
+	Kobiety	& 18 (a) & 7 (b) & 25 (a+b) \\ 
+	\hline 
+	Mężczyźni	& 42 (c) & 33 (d)  & 75 (c+d)  \\ 
+	\hline 
+	Suma	& 60 (a+c)  & 40 (b+d) & 100 (N) \\ 
+	\hline 
+\end{tabular} 
+
+Pierwszym krokiem jest określenie wartości oczekiwanych dla rozkładu cechy. Zasada brzmi: \textit{suma wiersza pomnożona przez sumę kolumny, podzielona przez sumę ogólną.} Można to zrobić wg formuły. Wartość oczekiwana dla komórki a:
+
+\[ a_{oczekwiana} = \frac{(a+b) * (a+c)}{N} \], czyli \[ a_{oczekiwana} = \frac{25 * 60}{100} = 15\]
+
+a nowa tabela będzie wyglądała następująco
+
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	& Wyrzucanie śmieci  & Śmiecenie  & Suma  \\ 
+	\hline 
+	Kobiety	& 18 (15) & 7 (10) & 25 (a+b) \\ 
+	\hline 
+	Mężczyźni	& 42 (45) & 33 (30)  & 75 (c+d)  \\ 
+	\hline 
+	Suma	& 60 (a+c)  & 40 (b+d) & 100 (N) \\ 
+	\hline
+\end{tabular} \par
+Wzór na chi kwadrat prezentuje się następująco:
+\[\chi^2=\sum_{k=1}^{n} \frac{(O_k - E_k)^2}{E_k}\]
+gdzie O to wartość obserwowana, a E to wartość oczekiwana.  \par
+Dla powyższego przypadku (i prostego zastosowaniu wzoru) $ \chi^{2} $ = 2.0. Po sprawdzeniu w tabeli - dla 1 stopnia swobody\footnote{Stopień swobody oblicza się jako iloczyn liczby kolumn -1 i liczy wierszy -1 (k-1)(w-1)} - prawdopodobieństwo wynosi 0.16 (więc jest (większe) > od $\alpha$ = 0,05 lub $\alpha$ = 0,01 ) - więc nie odrzucamy $ H_0 $. Nie ma istotnej różnicy w sposobie postępowania ze śmieciami ze względu na płeć.  \par
+Jeśli p < $\alpha$ = 0,05 lub $\alpha$ = 0,01 (czyli jest mniejsze) wówczas hipotezę o niezależności odrzucamy.\par
+W R, aby obliczyć chi kwadrat wystarczy zastosować test.
+\begin{lstlisting}[language=R,caption={Testowanie chi kwadrat. }] 
+s <-smieci[,c(2,3)]
+#stworzenie tablicy - indeksowanie
+chisq.test(s$wyrzucanie.smieci, s$X.1)
+#przprowadzenie testu 
+\end{lstlisting}
+
+Dla powyższych danych R automatycznie dołącza poprawkę Yates'a ( dla wartości, które są mniejsze niż 10). Dodatkowo może pojawić się potrzeba przeprowadzenia dokładnego testu Fishera. \par
+\begin{tcolorbox}
+	
+	
+	Pearson's Chi-squared test with Yates' continuity correction \par
+	
+	data:  s$wyrzucanie.smieci and s$X.1 \par
+	X-squared = 1.3889, df = 1, p-value = 0.2386 \par
+\end{tcolorbox}
+
+
+
+\subsection{Współczynni phi \phi}
+
+Dla zmiennych uszeregowanych podwójnie(dychotomicznie), kiedy zmienna zawiera tylko dwie klasy - obliczyć można siłę związku obliczając współczynnik \phi (phi). Problem z tym współczynnikiem polega na tym, że jeśli tabela jest większa to wartość może być większa niż 1, co utrudnia proces interpretacji współczynnika.
+
+\[ \phi = \frac{ad - bc}{\sqrt{(a+b)(c+d)(a+c)(b+d)}} \]
+
+Między \phi i $\chi^2$ istnieje związek bezpośredni \[ \phi^2 = \frac{\chi^2 }{N} \] stąd \[ \phi = \sqrt{\frac{\chi^2}{N}} \]
+Sprawia to, że przed określeniem siły związku między zmiennymi w tabeli należy określić, czy jest to związek nie wynikający z przypadku przeprowadzając test na niezależność zmiennych $ \chi^2 $. Wzór w tej formie może być używany dla tabel większych niż 2x2.\par
+Znak przy \phi nie określa kierunku związku, jak w przypadku korelacji miarowej(Pearsona), jedynie zależy do uporządkowania danych w tabeli 2x2.
+
+\subsection{Współczynnik kontygencji C - Pearsona}
+
+Współczynnik kontygencji w przeciwieństwie do współczynnika $\phi$ (phi), czy Q Yule`a można stosować dla tabel wielopolowych, bez ograniczenia do wielkości 2x2 (tabeli czteropolowej). Wartości, które przyjmuje współczynnik kontygencji C są z zakresu od 0 do 1. 
+
+\[ C = \sqrt{\frac{\chi^2}{\chi^2 + N}} \]
+
+\subsection{V Cramera }
+
+Kiedy współczynnik jest wyliczany dla tabeli 2x2 jego wartość jest taka jak we współczynniku kontygencji C. Zastąpił on używany wcześniej współczynnik Czuprowa T
+
+\[ V = \sqrt{\frac{\chi^2}{(m-1)N}} \]
+m to liczba kolumn, lub wierszy w zależności od tego, która wielkość jest mniejsza
+
+
+\subsection{Współczynnik lambda $\lambda$ Goodmana i Kruskala }
+
+Współczynnik bazuje na koncepcji proporcjonalnej redukcji błędu. Zawiera się w przedziale 0 do 1. Miarę tą można obliczać jako: \begin{itemize}
+	\item symetryczną, wówczas nie ma znaczenia która zmienna jest zależna, a która niezależna
+	\item niesymetryczną, wówczas test jest wykonywany osobno, więc zmiana kolejności będzie skutkowała innymi wynikami
+\end{itemize}  
+
+\section{Opis związku dwóch zmiennych. Zmienne porządkowe.}
+
+\subsection{Współczynnik $ \gamma$ (gamma) Goodmana i Kruskala}
+
+W pakiecie SPSS można go używać do wyliczania współczynnika Q Yula. 
+
+\subsection{Współczynnik $\rho$ (rho)  Spearmana. Korelacji rang}
+
+Współczynnik używany, kiedy dane są porangowane.  Porównujemy uszeregowanie dwóch zbiorów danych: obliczamy różnicę rang, podnosimy je do kwadratu, sumujemy. Wartość tego współczynnika zawiera się w przedziale  -1 < 0 < 1. 
+
+\subsection{Współczynnik $\tau$ (tau) b Kendalla. Korelacji rang }
+
+Współczynnik używany, kiedy dane porządkowe są mają powiązane rangi.
+
+
+\section{Opis związku dwóch zmiennych. Zmienne ilościowe.}
+\subsection{Korelacja miarowa/liniowa Pearsona} - Tworzenie macierzy korelacji odbywa się następująco:
 \begin{lstlisting}[language=R,caption={Korelacja}]
 cor(mtcars[,1:5])
 #lub wybór konkretnych kolumn 
@@ -329,6 +606,38 @@ barplot(tab, horiz = FALSE, las = 1)
 \subsection{Wykres kropkowy.}
 \section{ Pakiet ggplot2.}
 Tutorial \url{http://r-statistics.co/ggplot2-Tutorial-With-R.html}
+
+\chapter{Wizualizacja danych w ggplot2.}
+
+Do wizualizacji danych został wykorzystany pakiet ggplot z pakietu R. Podstawowe operacje "czyszczące" i porządkujące dane zostały wykonane w arkuszu kalkulacyjnym, zapisane w formacie csv i zaimportowane do programu RStudio.
+\section{Wykres słupkowy - porównanie danych.}
+\begin{itemize}
+	\item Rysowanie wykresu w oparciu o przekształcenie danych krótkich "short form" w długie "long form".
+	\item Użycie danych surowych <<stat="identity">>
+	\item Obrót wykresu.
+\end{itemize}
+
+\begin{lstlisting}[ language=R]
+library(reshape)    
+library(ggplot2)
+dataframe <- melt(krs_osm )
+dataframe  <- dataframe [complete.cases(krs_osm ),]
+head(dataframe)
+ggplot(data = dataframe , aes(x=reorder(Nazwa_indeksu,value), y = value, fill = variable), summarise ) + geom_bar(stat="identity", width = 0.5) + 
+labs (y="Liczba obiektow", x="Nazwa indeksu infrastruktury", size =2, fill='Zrodlo danych' )  +
+geom_text(aes(label=value), position=position_dodge(width= 0.1 ),hjust = - 0.1, vjust= 0.4,size = 3, color = "black"  ) + expand_limits(y=c(0,77000))+
+coord_flip()
+\end{lstlisting}
+
+\section{Wykres skrzypcowy i pudełkowy.}
+
+\begin{lstlisting}[ language=R]
+library(ggplot2)
+ggplot(wydatki_osoba_hist, aes(x=typ_historyczny, y= wydatki)) +
+geom_violin(aes(fill=typ_historyczny), trim=F) + geom_boxplot(width=.2) + xlab("Typ historyczny") + ylab("Wydatki na osobe") +
+geom_text(aes(label=gmina),color="blue3", size=3) +
+geom_rug(sides = 'l')
+\end{lstlisting}
 
 \chapter{Tworzenie map. Pakiet ggplot2.}
 Kurs online \url{https://www.datacamp.com/courses/working-with-geospatial-data-in-r}
