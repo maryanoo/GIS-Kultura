@@ -963,8 +963,9 @@ on left(bazy.dojazdy_praca_nsp_2011.teryt_zamieszk,6) = left(gminy_osm_teryt.ter
 \end{lstlisting}
 \subsection{Granice administracyjne.}
 W celu wyodrębnienia granic gmin (wraz z kodami teryt) z bazy OSM można użyć następującej komendy:
-\begin{lstlisting}[ language=SQL]
+\begin{lstlisting}[ language=SQL, caption=Gminy z OSM]
 select *
+into gminy
 from planet_osm_polygon
 where  admin_level = '7' and  (tags->'teryt:terc' IS not null)
 \end{lstlisting}
@@ -972,16 +973,13 @@ where  admin_level = '7' and  (tags->'teryt:terc' IS not null)
 Wygenerowanie mapy powiatów to zmiana admin_level = '6'
 
 \subsection{Dzielnice Warszawy.}
-Wydorębnienie dzielnic Warszawy polega na wyciągnięciu rekordów admin_level 9 i obszaru z terytami dla woj. mazowieckiego i gminy Warszawa
-\begin{lstlisting} [language=SQL]
+Wyodrębnienie dzielnic Warszawy polega na wyciągnięciu rekordów admin_level 9 i obszaru z terytami dla woj. mazowieckiego i gminy Warszawa
+\begin{lstlisting} [language=SQL, caption=Dzielnice warszawy]
 	select *
 	from planet_osm_polygon
 	where  admin_level = '9'  and (tags->'teryt:terc' ILIKE '%1465%')
 \end{lstlisting}
 
-\subsection{Edycja plików DBF dla QGIS}
-
-Pliki shp składają się z pięciu elementów, jednym są dane zawarte w pliku dbf, w którym są zapisane wartości dla atrybutów. Plik można otworzyć w arkuszu kalkulacyjnym. Jednak, aby zachować strukturę plików, należy zapisując pamiętać o dokładnie takiej samej kolejności w pliku. 
 
 \subsection{Gminy wg zaborów}
 Stworzenie aktualnej bazy gmin wg zaborów wymaga wykorzystania pliku z danymi historycznymi i przerobienie go do postaci, w której w jednej kolumnie będą dane o historii. 
@@ -1012,11 +1010,11 @@ where gminy_osm_hstore.key = 'teryt:terc'
 \end{lstlisting}
 tworząc kolejną bazę danych.\\
 
- W nowej wersji czynność należy zrobić w dwóch krokach. Po popierwsze należy z bazy planet_osm_polygon wybrać gminy (tak jak jest to przedstawione wcześniej) i wrzucić to do nowej tabeli gminy. Następnie należy stworzyć plik gmin, geometrii oraz nazw i terytów wyodrębnionych z kolumny tags (hstore).
- \begin{lstlisting}[ language=SQL]
+ W nowej wersji czynność należy zrobić w dwóch krokach. Po po pierwsze należy z bazy planet_osm_polygon wybrać gminy (tak jak jest to przedstawione wcześniej) i wrzucić to do nowej tabeli gminy. Następnie należy stworzyć plik gmin, geometrii oraz nazw i terytów wyodrębnionych z kolumny tags (hstore).
+ \begin{lstlisting}[ language=SQL, caption=Teryty jako kolumna - hstore]
  SELECT osm_id, name, way, h->'teryt:terc' AS teryt
- into gminy_osm_2018
- FROM  (SELECT osm_id,name, way, tags AS h FROM gminy) t;
+ into [gminy_osm_rok]
+ FROM  (SELECT osm_id,name, way, tags AS h FROM [gminy]) t;
  
 \end{lstlisting}
 \subsection{Rzutowanie typu.}
@@ -1028,6 +1026,15 @@ from ludnosc_wg_lat
 order by zmian_liczebnosc
 \end{lstlisting}
 
+\chapter{Analiza i wizualizacja danych w programie QGIS.}
+
+Prezentowane porady dotyczą wersji 3.6.x, która stanowi wersję LTR, czyli nie pojawiają się w niej nowe funkcjonalności, a jedynie poprawki błędów. 
+W systemie macos należy wcześniej zainstalować pakiet Python w wersji 3.6 (w czerwcu 2019 była to wersja 3.6.8), jest on dystrybuowany osobno. W systemie Linux jest to zależne od dystrybucji. Arch ma w chwili obecnej pakiet zbudowany, do pobrania menadżerem pacman. Wersja dla Windows posiada instalator sieciowy, który zajmuje się pobraniem i zainstalowaniem niezbędnych dodatków i zależności. 
+\section{Wczytywanie danych.}
+
+\subsection{Edycja plików DBF dla QGIS}
+
+Pliki shp składają się z pięciu elementów, jednym są dane zawarte w pliku dbf, w którym są zapisane wartości dla atrybutów. Plik można otworzyć w arkuszu kalkulacyjnym. Jednak, aby zachować strukturę plików, należy zapisując pamiętać o dokładnie takiej samej kolejności w pliku. 
 
 
 \appendix
